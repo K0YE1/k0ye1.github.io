@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Portable Panel</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <span class="logo-icon">MPP</span>
+            <span class="logo-text">PortablePanel</span>
+        </div>
+        <nav class="nav-links">
+            <a href="#">Преимущества</a>
+            <a href="#">Функции</a>
+            <a href="#">Отзывы</a>
+            <a href="#">Демонстрация</a>
+            <a href="#">FAQ</a>
+        </nav>
+        <div class="nav-actions">
+            <button class="auth-btn">Авторизация</button>
+        </div>
+    </header>
+
+    <main class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Панель — <br><span class="highlight">нового</span> уровня</h1>
+            <p class="hero-subtitle">
+                Minecraft Portable Panel — современная панель для управления сервером и игрой с друзьями. Продвинутые модули, настраиваемый интерфейс и полный контроль над показателями.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn btn-secondary">Подробнее</button>
+                <a href="https://discord.gg/fn675cmDCP" class="btn btn-primary" target="_blank" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Получить доступ</a>
+            </div>
+        </div>
+
+        <div class="hero-visual" id="hero-visual-container">
+            <img src="panel.png" class="panel-mockup" id="tilt-panel" alt="Panel Mockup" style="width: 100%; height: auto; object-fit: contain; position: relative; z-index: 2;">
+            
+            <!-- Floating Widgets -->
+            <div class="floating-widget widget-status" id="float-1">
+                <div class="fw-header">
+                    <span class="fw-icon">📱</span> <span class="fw-title">Статус</span>
+                </div>
+                <div class="fw-value fw-off">Выключен</div>
+            </div>
+
+            <div class="floating-widget widget-flash" id="float-2">
+                <div class="fw-header">
+                    <span class="fw-icon">💾</span> <span class="fw-title">Память флешки (K:)</span>
+                </div>
+                <div class="fw-progress">
+                    <div class="fw-bar fw-bar-purple" style="width: 18%;"></div>
+                </div>
+                <div class="fw-subtext">21,4 / 117,2 GB</div>
+            </div>
+
+            <div class="floating-widget widget-heat" id="float-3">
+                <div class="fw-header">
+                    <span class="fw-icon">🌡️</span> <span class="fw-title">Нагрев флешки</span>
+                </div>
+                <div class="fw-progress">
+                    <div class="fw-bar fw-bar-red" style="width: 30%;"></div>
+                </div>
+                <div class="fw-subtext">30°C</div>
+            </div>
+        </div>
+    </main>
+
+    <section class="features" id="features">
+        <div class="features-container">
+            <h2 class="section-title">Огромный <span class="highlight">функционал</span> в одном месте</h2>
+            <p class="section-subtitle">Всё необходимое для полного контроля над вашим сервером без лишних хлопот.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⌨️</div>
+                    <h3>Консоль</h3>
+                    <p>Полноценная живая консоль сервера с поддержкой всех команд и цветовой разметки прямо в браузере.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Быстрые команды</h3>
+                    <p>Создавайте бинды и макросы для самых частых команд, чтобы управлять сервером в один клик.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Статус</h3>
+                    <p>Следите за нагрузкой CPU, использованием RAM и дисковым пространством в реальном времени.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Игроки</h3>
+                    <p>Удобный менеджер игроков: выдача прав, бан, кик и просмотр онлайна без входа в игру.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📁</div>
+                    <h3>Файлы</h3>
+                    <p>Встроенный продвинутый файловый менеджер для редактирования конфигов и загрузки данных.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔌</div>
+                    <h3>Плагины</h3>
+                    <p>Быстрая установка, настройка и обновление плагинов сервера (Up plugins).</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Античит</h3>
+                    <p>Продвинутое управление античитом и отслеживание подозрительной активности игроков.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💾</div>
+                    <h3>Бэкапы</h3>
+                    <p>Автоматическое и ручное резервное копирование для обеспечения полной безопасности данных.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Миры</h3>
+                    <p>Управление мирами: генерация, загрузка, настройка игровых правил и удаление измерений.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>Вебхуки и Discord</h3>
+                    <p>Полная интеграция с Discord: логирование, синхронизация чата и моментальные уведомления.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="background-effects">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+    </div>
+
+    <script>
+        const panel = document.getElementById('tilt-panel');
+        const float1 = document.getElementById('float-1');
+        const float2 = document.getElementById('float-2');
+        const float3 = document.getElementById('float-3');
+        
+        document.addEventListener('mousemove', (e) => {
+            // Делим на 70, чтобы эффект был намного мягче
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 70;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 70;
+            
+            panel.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            
+            // Параллакс эффект для виджетов
+            if (window.innerWidth > 1200) {
+                float1.style.transform = `translate(${xAxis * 1.5}px, ${yAxis * 1.5}px)`;
+                float2.style.transform = `translate(${xAxis * -2}px, ${yAxis * -2}px)`;
+                float3.style.transform = `translate(${xAxis * 1}px, ${yAxis * -1}px)`;
+            }
+        });
+
+        // Сброс при уходе мыши
+        document.addEventListener('mouseleave', () => {
+            panel.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg)`;
+            float1.style.transform = `translate(0px, 0px)`;
+            float2.style.transform = `translate(0px, 0px)`;
+            float3.style.transform = `translate(0px, 0px)`;
+        });
+    </script>
+</body>
+</html>
