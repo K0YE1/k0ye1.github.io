@@ -35,7 +35,7 @@
                 Minecraft Portable Panel — современная панель для управления сервером и игрой с друзьями. Продвинутые модули, настраиваемый интерфейс и полный контроль над показателями.
             </p>
             <div class="hero-buttons">
-                <button class="btn btn-secondary">Подробнее</button>
+                <button class="btn btn-secondary" id="btn-more">Подробнее</button>
                 <a href="https://discord.gg/fn675cmDCP" class="btn btn-primary" target="_blank" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Получить доступ</a>
             </div>
         </div>
@@ -138,11 +138,23 @@
         <div class="glow glow-2"></div>
     </div>
 
+    <audio id="click-sound" src="App.mp3" preload="auto"></audio>
+
     <script>
         const panel = document.getElementById('tilt-panel');
         const float1 = document.getElementById('float-1');
         const float2 = document.getElementById('float-2');
         const float3 = document.getElementById('float-3');
+        const btnMore = document.getElementById('btn-more');
+        const clickSound = document.getElementById('click-sound');
+
+        btnMore.addEventListener('click', () => {
+            clickSound.currentTime = 0; // Сбрасываем, чтобы можно было быстро кликать несколько раз
+            clickSound.play().catch(e => console.log("Audio play prevented by browser:", e));
+            
+            // Плавный скролл к секции с функционалом
+            document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+        });
         
         document.addEventListener('mousemove', (e) => {
             // Делим на 70, чтобы эффект был намного мягче
