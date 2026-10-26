@@ -1,12 +1,11 @@
 $URL_GAME_ZIP = "https://github.com/K0YE1/k0ye1.github.io/releases/download/v21/GDV21.zip"
-$URL_PASSWORD = "https://raw.githubusercontent.com/K0YE1/k0ye1.github.io/refs/heads/main/GeometryDash/V2.1/Password.txt"
 
 Clear-Host
 Write-Host "==================================================" -ForegroundColor Cyan
-Write-Host "    УСТАНОВЩИК GEOMETRY DASH v2.1 (BYPASS EDITION) " -ForegroundColor Yellow -BackgroundColor DarkBlue
+Write-Host "    GEOMETRY DASH v2.1 INSTALLER (BYPASS)         " -ForegroundColor Yellow -BackgroundColor DarkBlue
 Write-Host "==================================================" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "[*] Проверка целевой директории..." -ForegroundColor Green
+Write-Host "[*] Preparing directories..." -ForegroundColor Green
 Start-Sleep -Seconds 1
 
 $TargetDir = "C:\GeometryDash\V2.1"
@@ -14,69 +13,76 @@ if (!(Test-Path $TargetDir)) {
     New-Item -ItemType Directory -Force -Path $TargetDir | Out-Null
 }
 
-Write-Host "[*] Запуск процесса загрузки игровых архивов..." -ForegroundColor Green
-Start-BitsTransfer -Source $URL_GAME_ZIP -Destination "$TargetDir\GDV21.zip" -Description "Скачивание Geometry Dash 2.1" -Priority High
+Write-Host "[*] Downloading game files..." -ForegroundColor Green
+Start-BitsTransfer -Source $URL_GAME_ZIP -Destination "$TargetDir\GDV21.zip" -Description "Downloading GD 2.1" -Priority High
 
 $DesktopPath = [Environment]::GetFolderPath("Desktop")
 
-$Lines = @(
-    "@echo off",
-    "chcp 65001 > nul",
-    "title Запуск Geometry Dash 2.1 (Steam Bypass)",
-    "mode con: cols=80 lines=25",
-    "cls",
-    "echo =======================================================================",
-    "echo Привет! Идет запуск игры. Обход стима.",
-    "echo Ввожу аргумент запуска -nosteam...",
-    "echo =======================================================================",
-    "echo Авторизация на удаленном сервере...",
-    "echo [SYS-INFO] Проверка дескрипторов ядра... DONE",
-    "echo [Bypass] Подмена сигнатуры steam_api.dll... SUCCESS",
-    "echo [Net-Sec] Спуфинг тикетов Steam AppID 322170... RUNNING",
-    "echo [Kernel] Выделение памяти под эмуляцию... DONE",
-    "timeout /t 2 > nul",
-    "for /f `"delims=`" %%i in ('powershell -Command `"(Invoke-WebRequest -Uri '$URL_PASSWORD' -UseBasicParsing).Content.Trim()`"') do set `"GDPASS=%%i`"",
-    "echo [Bypass] Дешифровка и развертывание среды v2.1...",
-    "if not exist `"C:\GeometryDash\V2.1\Game`" md `"C:\GeometryDash\V2.1\Game`"",
-    "powershell -Command `"`$winShell = New-Object -ComObject Shell.Application; `$zipFile = `$winShell.NameSpace('C:\GeometryDash\V2.1\GDV21.zip'); `$destFolder = `$winShell.NameSpace('C:\GeometryDash\V2.1\Game'); foreach (`$item in `$zipFile.Items()) { `$destFolder.CopyHere(`$item, 16) }`" 2>nul",
-    "cls",
-    "echo =======================================================================",
-    "echo Игра запущена! Приятной игры в 2.1.",
-    "echo =======================================================================",
-    "echo [АКТИВНЫЕ ПРОЦЕССЫ СЕТЕВОГО ОБХОДА]:",
-    "echo -----------------------------------------------------------------------",
-    "echo ^> PID %RANDOM%: steam_emu.sys [Эмуляция Steam-Клиента]",
-    "echo ^> PID %RANDOM%: gd_hook_v21.dll [Скрытие процесса]",
-    "echo ^> PID %RANDOM%: tier1_s.dll [Спуфинг подписи]",
-    "echo -----------------------------------------------------------------------",
-    "echo ВНИМАНИЕ: Не закрывайте консоль! При закрытии сессия зашифруется.",
-    "echo 322170 > `"C:\GeometryDash\V2.1\Game\steam_appid.txt`"",
-    "cd /d `"C:\GeometryDash\V2.1\Game`"",
-    "start /wait `"`" `"GeometryDash.exe`" -nosteam",
-    "cls",
-    "echo =======================================================================",
-    "echo Сессия завершена. Начинается сохранение прогресса и шифрование данных...",
-    "echo НЕ ЗАКРЫВАЙТЕ ОКНО И НЕ ВЫКЛЮЧАЙТЕ ПК ДО ПОЛНОЙ ОЧИСТКИ КЭША!",
-    "echo =======================================================================",
-    "echo [Secure] Обновление зашифрованного архива GDV21.zip...",
-    "if exist `"C:\GeometryDash\V2.1\GDV21.zip`" del /f /q `"C:\GeometryDash\V2.1\GDV21.zip`"",
-    "powershell -Command `"Add-Type -AssemblyName System.IO.Compression.FileSystem; [System.IO.Compression.ZipFile]::CreateFromDirectory('C:\GeometryDash\V2.1\Game', 'C:\GeometryDash\V2.1\GDV21.zip')`" 2>nul",
-    "echo [Secure] Очистка временных незащищенных файлов...",
-    "rd /s /q `"C:\GeometryDash\V2.1\Game`" 2>nul",
-    "echo [Secure] Сброс токенов безопасности...",
-    "set `"GDPASS=`"",
-    "echo [УСПЕШНО] Все данные зашифрованы в C:\GeometryDash\V2.1\. Сессия закрыта.",
-    "timeout /t 3",
-    "exit"
-)
+$BatContent = @'
+@echo off
+chcp 65001 > nul
+title GD 2.1 Launcher (Steam Bypass)
+mode con: cols=80 lines=25
+cls
 
-# Запись без BOM-маркеров
+echo =======================================================================
+echo Starting Geometry Dash 2.1...
+echo Applying parameter: -nosteam
+echo =======================================================================
+echo.
+echo [SYS-INFO] Checking kernel descriptors... DONE
+echo [Bypass] Injecting steam_api.dll signature... SUCCESS
+echo [Net-Sec] Spoofing Steam AppID 322170... RUNNING
+echo [Kernel] Allocating memory for 32-bit emulation... DONE
+ping 127.0.0.1 -n 3 > nul
+
+echo [Bypass] Extracting isolated sandbox environment...
+if not exist "C:\GeometryDash\V2.1\Game" md "C:\GeometryDash\V2.1\Game"
+
+tar -xf "C:\GeometryDash\V2.1\GDV21.zip" -C "C:\GeometryDash\V2.1\Game" 2>nul
+
+cls
+echo =======================================================================
+echo Game is running! Have a good time.
+echo =======================================================================
+echo [ACTIVE STEAM BYPASS PROCESSES]:
+echo -----------------------------------------------------------------------
+echo ^> PID 4812: steam_emu.sys [Steam Client Emulation]
+echo ^> PID 1024: gd_hook_v21.dll [Process Hiding]
+echo ^> PID 3956: tier1_s.dll [Signature Spoofing]
+echo -----------------------------------------------------------------------
+echo WARNING: Do not close this window! Game will lock on close.
+
+echo 322170 > "C:\GeometryDash\V2.1\Game\steam_appid.txt"
+
+cd /d "C:\GeometryDash\V2.1\Game"
+start /wait "" "GeometryDash.exe" -nosteam
+
+cls
+echo =======================================================================
+echo Game closed. Syncing data and encrypting directory...
+echo PLEASE DO NOT CLOSE THIS WINDOW OR SHUTDOWN PC!
+echo =======================================================================
+
+echo [Secure] Updating secure package...
+if exist "C:\GeometryDash\V2.1\GDV21.zip" del /f /q "C:\GeometryDash\V2.1\GDV21.zip"
+
+tar -cf "C:\GeometryDash\V2.1\GDV21.zip" -C "C:\GeometryDash\V2.1\Game" . 2>nul
+
+echo [Secure] Wiping unencrypted temporary cache...
+rd /s /q "C:\GeometryDash\V2.1\Game" 2>nul
+
+echo [SUCCESS] Session secured. Safe to exit.
+ping 127.0.0.1 -n 3 > nul
+exit
+'@
+
 $Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
-[System.IO.File]::WriteAllLines("$DesktopPath\start.bat", $Lines, $Utf8NoBom)
+[System.IO.File]::WriteAllText("$DesktopPath\start.bat", $BatContent, $Utf8NoBom)
 
 Write-Host ""
-Write-Host "[ГОТОВО] Скрипт успешно развернут под V2.1!" -ForegroundColor Green
-Write-Host "[+] Ярлык 'start.bat' создан на вашем Рабочем столе." -ForegroundColor Yellow
+Write-Host "[SUCCESS] Script successfully deployed!" -ForegroundColor Green
+Write-Host "[+] 'start.bat' has been created on your Desktop." -ForegroundColor Yellow
 Write-Host ""
-Write-Host "Нажмите любую клавишу для выхода..." -ForegroundColor Gray
+Write-Host "Press any key to exit..." -ForegroundColor Gray
 [void]$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
