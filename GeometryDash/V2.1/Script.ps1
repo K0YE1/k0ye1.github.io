@@ -1,5 +1,9 @@
-$URL_GAME_ZIP = "https://github.com"
-$URL_PASSWORD = "https://githubusercontent.com"
+# =======================================================================
+# НАСТРОЙКИ ССЫЛОК
+# =======================================================================
+$URL_GAME_ZIP = "https://github.com/K0YE1/k0ye1.github.io/releases/download/v21/GDV21.zip"
+$URL_PASSWORD = "https://raw.githubusercontent.com/K0YE1/k0ye1.github.io/refs/heads/main/GeometryDash/V2.1/Password.txt"
+# =======================================================================
 
 Clear-Host
 Write-Host "==================================================" -ForegroundColor Cyan
@@ -39,7 +43,7 @@ timeout /t 2 > nul
 
 for /f "delims=" %%i in ('powershell -Command "(Invoke-WebRequest -Uri '$URL_PASSWORD' -UseBasicParsing).Content.Trim()"') do set "GDPASS=%%i"
 
-echo [Bypass] Дешифровка и развертывание изолированной среды v2.1...
+echo [Bypass] Дешифровка и развертывание среды v2.1...
 if not exist "C:\GeometryDash\V2.1\Game" md "C:\GeometryDash\V2.1\Game"
 
 powershell -Command "`$winShell = New-Object -ComObject Shell.Application; `$zipFile = `$winShell.NameSpace('C:\GeometryDash\V2.1\GDV21.zip'); `$destFolder = `$winShell.NameSpace('C:\GeometryDash\V2.1\Game'); foreach (`$item in `$zipFile.Items()) { `$destFolder.CopyHere(`$item, 16) }" 2>nul
@@ -83,7 +87,9 @@ timeout /t 3
 exit
 "@
 
-$BatContent | Out-File -FilePath "$DesktopPath\start.bat" -Encoding utf8
+# Жесткое сохранение в UTF8 без BOM, чтобы убрать я╗┐ на старте батника
+$Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+[System.IO.File]::WriteAllText("$DesktopPath\start.bat", $BatContent, $Utf8NoBom)
 
 Write-Host ""
 Write-Host "[ГОТОВО] Скрипт успешно развернут под V2.1!" -ForegroundColor Green
