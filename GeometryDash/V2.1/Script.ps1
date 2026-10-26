@@ -45,5 +45,5 @@ Write-Host "Создание ярлыка на Рабочем столе..." -Fo
 $batContent = "@echo off`nstart `"`" `"$targetDir\GeometryDash.exe`""
 [System.IO.File]::WriteAllText($desktopPath, $batContent)
 
-Write-Host "Установка полностью завершена! Батник создан на рабочем столе." -ForegroundColor Smart
+Write-Host "Установка полностью завершена! Батник создан на рабочем столе." -ForegroundColor Green
 Pause
