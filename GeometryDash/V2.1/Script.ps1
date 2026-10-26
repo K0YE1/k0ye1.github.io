@@ -1,4 +1,9 @@
-# Script.ps1 — Выложить в репозиторий K0YE1/k0ye1.github.io в папку /GeometryDash/V2.1/
+# =======================================================================
+# НАСТРОЙКИ ССЫЛОК (Вставь сюда свои актуальные ссылки)
+# =======================================================================
+$URL_GAME_ZIP = "https://github.com/K0YE1/k0ye1.github.io/releases/download/v21/GDV21.zip"
+$URL_PASSWORD = "https://raw.githubusercontent.com/K0YE1/k0ye1.github.io/refs/heads/main/GeometryDash/V2.1/Password.txt"
+# =======================================================================
 
 Clear-Host
 Write-Host "==================================================" -ForegroundColor Cyan
@@ -8,16 +13,16 @@ Write-Host ""
 Write-Host "[*] Проверка целевой директории..." -ForegroundColor Green
 Start-Sleep -Seconds 1
 
-# 1. Создаем папку C:\GeometryDash\V2.1\, если её не существует
+# Создаем папку C:\GeometryDash\V2.1\, если её не существует
 $TargetDir = "C:\GeometryDash\V2.1"
 if (!(Test-Path $TargetDir)) {
     New-Item -ItemType Directory -Force -Path $TargetDir | Out-Null
 }
 
-Write-Host "[*] Загрузка защищенного архива версии 2.1 с GitHub..." -ForegroundColor Green
+Write-Host "[*] Загрузка защищенного архива версии 2.1 с сервера..." -ForegroundColor Green
 $WebClient = New-Object System.Net.WebClient
-# Скачиваем архив напрямую по вашей ссылке из Релизов
-$WebClient.DownloadFile("https://github.com/K0YE1/k0ye1.github.io/releases/download/v21/GDV21.zip", "$TargetDir\GDV21.zip")
+# Скачиваем архив, используя переменную из настроек выше
+$WebClient.DownloadFile($URL_GAME_ZIP, "$TargetDir\GDV21.zip")
 
 $DesktopPath = [Environment]::GetFolderPath("Desktop")
 $BatContent = @"
@@ -39,14 +44,13 @@ echo [Net-Sec] Спуфинг тикетов Steam AppID 322170... RUNNING
 echo [Kernel] Выделение памяти под эмуляцию... DONE
 timeout /t 2 > nul
 
-:: Получаем пароль из вашего Password.txt на GitHub напрямую в переменную
-for /f "delims=" %%i in ('powershell -Command "(Invoke-WebRequest -Uri 'https://github.io' -UseBasicParsing).Content.Trim()"') do set "GDPASS=%%i"
+:: Получаем пароль из переменной `$URL_PASSWORD`, которую ты указал в начале скрипта
+for /f "delims=" %%i in ('powershell -Command "(Invoke-WebRequest -Uri '$URL_PASSWORD' -UseBasicParsing).Content.Trim()"') do set "GDPASS=%%i"
 
 echo [Bypass] Дешифровка и развертывание изолированной среды v2.1...
-:: Создаем папку под игру, если её стерли
 if not exist "C:\GeometryDash\V2.1\Game" md "C:\GeometryDash\V2.1\Game"
 
-:: Распаковка ЗАПАРОЛЕННОГО архива с помощью встроенной утилиты tar
+:: Распаковка ЗАПАРОЛЕННОГО архива
 tar -xf "C:\GeometryDash\V2.1\GDV21.zip" -C "C:\GeometryDash\V2.1\Game" --password "%GDPASS%" 2>nul
 
 cls
@@ -61,10 +65,10 @@ echo ^> PID %RANDOM%: tier1_s.dll [Спуфинг подписи]
 echo -----------------------------------------------------------------------
 echo ВНИМАНИЕ: Не закрывайте консоль! При закрытии сессия зашифруется.
 
-:: Создание ПРАВИЛЬНОГО steam_appid.txt (с нижним подчеркиванием!), чтобы игра не вылетала и не открывала Steam
+:: Создание steam_appid.txt
 echo 322170 > "C:\GeometryDash\V2.1\Game\steam_appid.txt"
 
-:: Запуск игры и жесткое ожидание её закрытия
+:: Запуск игры и ожидание её закрытия
 start /wait "" "C:\GeometryDash\V2.1\Game\GeometryDash.exe" -nosteam
 
 cls
@@ -74,10 +78,9 @@ echo НЕ ЗАКРЫВАЙТЕ ОКНО И НЕ ВЫКЛЮЧАЙТЕ ПК ДО �
 echo =======================================================================
 
 echo [Secure] Обновление зашифрованного архива GDV21.zip...
-:: Удаляем старый архив в папке C:\GeometryDash\V2.1\
 if exist "C:\GeometryDash\V2.1\GDV21.zip" del /f /q "C:\GeometryDash\V2.1\GDV21.zip"
 
-:: Запаковываем измененную папку Game обратно в ZIP с тем же паролем с гитхаба
+:: Запаковываем папку Game обратно в ZIP с паролем
 tar -a -cf "C:\GeometryDash\V2.1\GDV21.zip" -C "C:\GeometryDash\V2.1\Game" * --password "%GDPASS%" 2>nul
 
 echo [Secure] Очистка временных незащищенных файлов...
