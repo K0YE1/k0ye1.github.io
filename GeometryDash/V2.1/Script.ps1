@@ -1,14 +1,10 @@
 # --- НАСТРОЙКИ ---
-# Ссылка на архив с Geometry Dash 2.1 на GitHub
 $downloadUrl = "https://github.com/K0YE1/k0ye1.github.io/releases/download/v21/GDV21.zip"
 
 # Пути для установки
 $targetDir = "C:\GeometryDash\V21"
 $zipPath = "$targetDir\gd21.zip"
-$desktopPath = [System.IO.Path]::Combine([Environment]::GetFolderPath("Desktop"), "Geometry Dash.bat")
-
-# Точный путь к запускному файлу внутри вложенной папки
-$exePath = "$targetDir\GDV21\GeometryDash.exe"
+$shortcutPath = [System.IO.Path]::Combine([Environment]::GetFolderPath("Desktop"), "Geometry Dash.lnk")
 
 # --- ПРОЦЕСС УСТАНОВКИ ---
 
@@ -33,9 +29,7 @@ try {
 Write-Host "Распаковка файлов..." -ForegroundColor Cyan
 try {
     Expand-Archive -Path $zipPath -DestinationPath $targetDir -Force
-    Write-Host "Игра успешно распакована в $targetDir\GDV21" -ForegroundColor Green
-    
-    # Удаление временного zip-архива после распаковки
+    Write-Host "Игра успешно распакована." -ForegroundColor Green
     Remove-Item -Path $zipPath -Force
 } catch {
     Write-Host "Ошибка при распаковке архива!" -ForegroundColor Red
@@ -43,10 +37,32 @@ try {
     Exit
 }
 
-# 4. Создание батника на рабочем столе с точным путем
+# 4. Авто-поиск EXE и создание нормального ярлыка
 Write-Host "Создание ярлыка на Рабочем столе..." -ForegroundColor Cyan
-$batContent = "@echo off`nstart `"`" `"$exePath`""
-[System.IO.File]::WriteAllText($desktopPath, $batContent)
 
-Write-Host "Установка полностью завершена! Батник создан на рабочем столе." -ForegroundColor Green
+# Скрипт сам найдет, куда распаковался exe-шник
+if (Test-Path "$targetDir\GDV21\GeometryDash.exe") {
+    $exePath = "$targetDir\GDV21\GeometryDash.exe"
+    $workingDir = "$targetDir\GDV21"
+} else {
+    $exePath = "$targetDir\GeometryDash.exe"
+    $workingDir = $targetDir
+}
+
+try {
+    # Создаем полноценный ярлык через COM-объект Windows
+    $wshShell = New-Object -ComObject WScript.Shell
+    $shortcut = $wshShell.CreateShortcut($shortcutPath)
+    $shortcut.TargetPath = $exePath
+    $shortcut.WorkingDirectory = $workingDir
+    $shortcut.IconLocation = "$exePath,0" # Берем родную иконку из самого exe игры
+    $shortcut.Save()
+    
+    Write-Host "Ярлык 'Geometry Dash' с иконкой успешно создан на рабочем столе!" -ForegroundColor Green
+} catch {
+    Write-Host "Не удалось создать ярлык." -ForegroundColor Red
+    Write-Host $_.Exception.Message -ForegroundColor DarkRed
+}
+
+Write-Host "`nУстановка полностью завершена!" -ForegroundColor Green
 Pause
