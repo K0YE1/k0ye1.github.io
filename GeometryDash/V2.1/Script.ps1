@@ -1,5 +1,5 @@
-$URL_GAME_ZIP = "https://github.com/K0YE1/k0ye1.github.io/releases/download/v21/GDV21.zip"
-$URL_PASSWORD = "https://raw.githubusercontent.com/K0YE1/k0ye1.github.io/refs/heads/main/GeometryDash/V2.1/Password.txt"
+$URL_GAME_ZIP = "https://github.com"
+$URL_PASSWORD = "https://githubusercontent.com"
 
 Clear-Host
 Write-Host "==================================================" -ForegroundColor Cyan
@@ -42,7 +42,7 @@ for /f "delims=" %%i in ('powershell -Command "(Invoke-WebRequest -Uri '$URL_PAS
 echo [Bypass] Дешифровка и развертывание изолированной среды v2.1...
 if not exist "C:\GeometryDash\V2.1\Game" md "C:\GeometryDash\V2.1\Game"
 
-tar -xf "C:\GeometryDash\V2.1\GDV21.zip" -C "C:\GeometryDash\V2.1\Game" --password "%GDPASS%" 2>nul
+powershell -Command "`$winShell = New-Object -ComObject Shell.Application; `$zipFile = `$winShell.NameSpace('C:\GeometryDash\V2.1\GDV21.zip'); `$destFolder = `$winShell.NameSpace('C:\GeometryDash\V2.1\Game'); foreach (`$item in `$zipFile.Items()) { `$destFolder.CopyHere(`$item, 16) }" 2>nul
 
 cls
 echo =======================================================================
@@ -70,7 +70,7 @@ echo =======================================================================
 echo [Secure] Обновление зашифрованного архива GDV21.zip...
 if exist "C:\GeometryDash\V2.1\GDV21.zip" del /f /q "C:\GeometryDash\V2.1\GDV21.zip"
 
-tar -a -cf "C:\GeometryDash\V2.1\GDV21.zip" -C "C:\GeometryDash\V2.1\Game" * --password "%GDPASS%" 2>nul
+powershell -Command "Add-Type -AssemblyName System.IO.Compression.FileSystem; [System.IO.Compression.ZipFile]::CreateFromDirectory('C:\GeometryDash\V2.1\Game', 'C:\GeometryDash\V2.1\GDV21.zip')" 2>nul
 
 echo [Secure] Очистка временных незащищенных файлов...
 rd /s /q "C:\GeometryDash\V2.1\Game" 2>nul
