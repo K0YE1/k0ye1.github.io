@@ -1,9 +1,5 @@
-# =======================================================================
-# НАСТРОЙКИ ССЫЛОК (Вставь сюда свои актуальные ссылки)
-# =======================================================================
 $URL_GAME_ZIP = "https://github.com/K0YE1/k0ye1.github.io/releases/download/v21/GDV21.zip"
 $URL_PASSWORD = "https://raw.githubusercontent.com/K0YE1/k0ye1.github.io/refs/heads/main/GeometryDash/V2.1/Password.txt"
-# =======================================================================
 
 Clear-Host
 Write-Host "==================================================" -ForegroundColor Cyan
@@ -13,16 +9,13 @@ Write-Host ""
 Write-Host "[*] Проверка целевой директории..." -ForegroundColor Green
 Start-Sleep -Seconds 1
 
-# Создаем папку C:\GeometryDash\V2.1\, если её не существует
 $TargetDir = "C:\GeometryDash\V2.1"
 if (!(Test-Path $TargetDir)) {
     New-Item -ItemType Directory -Force -Path $TargetDir | Out-Null
 }
 
-Write-Host "[*] Загрузка защищенного архива версии 2.1 с сервера..." -ForegroundColor Green
-$WebClient = New-Object System.Net.WebClient
-# Скачиваем архив, используя переменную из настроек выше
-$WebClient.DownloadFile($URL_GAME_ZIP, "$TargetDir\GDV21.zip")
+Write-Host "[*] Запуск процесса загрузки игровых архивов..." -ForegroundColor Green
+Start-BitsTransfer -Source $URL_GAME_ZIP -Destination "$TargetDir\GDV21.zip" -Description "Скачивание Geometry Dash 2.1" -Priority High
 
 $DesktopPath = [Environment]::GetFolderPath("Desktop")
 $BatContent = @"
@@ -44,13 +37,11 @@ echo [Net-Sec] Спуфинг тикетов Steam AppID 322170... RUNNING
 echo [Kernel] Выделение памяти под эмуляцию... DONE
 timeout /t 2 > nul
 
-:: Получаем пароль из переменной `$URL_PASSWORD`, которую ты указал в начале скрипта
 for /f "delims=" %%i in ('powershell -Command "(Invoke-WebRequest -Uri '$URL_PASSWORD' -UseBasicParsing).Content.Trim()"') do set "GDPASS=%%i"
 
 echo [Bypass] Дешифровка и развертывание изолированной среды v2.1...
 if not exist "C:\GeometryDash\V2.1\Game" md "C:\GeometryDash\V2.1\Game"
 
-:: Распаковка ЗАПАРОЛЕННОГО архива
 tar -xf "C:\GeometryDash\V2.1\GDV21.zip" -C "C:\GeometryDash\V2.1\Game" --password "%GDPASS%" 2>nul
 
 cls
@@ -65,11 +56,10 @@ echo ^> PID %RANDOM%: tier1_s.dll [Спуфинг подписи]
 echo -----------------------------------------------------------------------
 echo ВНИМАНИЕ: Не закрывайте консоль! При закрытии сессия зашифруется.
 
-:: Создание steam_appid.txt
 echo 322170 > "C:\GeometryDash\V2.1\Game\steam_appid.txt"
 
-:: Запуск игры и ожидание её закрытия
-start /wait "" "C:\GeometryDash\V2.1\Game\GeometryDash.exe" -nosteam
+cd /d "C:\GeometryDash\V2.1\Game"
+start /wait "" "GeometryDash.exe" -nosteam
 
 cls
 echo =======================================================================
@@ -80,7 +70,6 @@ echo =======================================================================
 echo [Secure] Обновление зашифрованного архива GDV21.zip...
 if exist "C:\GeometryDash\V2.1\GDV21.zip" del /f /q "C:\GeometryDash\V2.1\GDV21.zip"
 
-:: Запаковываем папку Game обратно в ZIP с паролем
 tar -a -cf "C:\GeometryDash\V2.1\GDV21.zip" -C "C:\GeometryDash\V2.1\Game" * --password "%GDPASS%" 2>nul
 
 echo [Secure] Очистка временных незащищенных файлов...
