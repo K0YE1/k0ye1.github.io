@@ -1,0 +1,2247 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liquid Hub — Релизы от K0YE1 (.ZIP / Google Drive)</title>
+  <!-- Google Fonts: Inter / SF-like typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Google Identity Services (GIS) Official OAuth2 SDK -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            apple: {
+              blue: '#0088ff',
+              blueDark: '#0091ff',
+              cyan: '#3cd3fe',
+              green: '#30d158',
+              red: '#ff4245',
+              orange: '#ff9230',
+              purple: '#db34f2',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* iOS 27 Liquid Glass Design Tokens & Materials */
+    :root {
+      --ios27-glass-bg: rgba(28, 28, 30, 0.75);
+      --ios27-glass-card-bg: rgba(36, 36, 42, 0.6);
+      --ios27-glass-specular: rgba(255, 255, 255, 0.18);
+      --ios27-glass-edge: rgba(0, 0, 0, 0.5);
+    }
+
+    body {
+      background-color: #090a0f;
+      color: #f5f5f7;
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Ambient Aurora Glow */
+    .aurora-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .aurora-blob-1 {
+      position: absolute;
+      top: -15%;
+      left: 10%;
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, rgba(0, 145, 255, 0.22) 0%, rgba(0, 0, 0, 0) 70%);
+      filter: blur(80px);
+      animation: float1 18s ease-in-out infinite alternate;
+    }
+    .aurora-blob-2 {
+      position: absolute;
+      top: 30%;
+      right: 5%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(219, 52, 242, 0.16) 0%, rgba(0, 0, 0, 0) 70%);
+      filter: blur(90px);
+      animation: float2 22s ease-in-out infinite alternate;
+    }
+    .aurora-blob-3 {
+      position: absolute;
+      bottom: 5%;
+      left: 25%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(60, 211, 254, 0.14) 0%, rgba(0, 0, 0, 0) 70%);
+      filter: blur(85px);
+    }
+    @keyframes float1 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(60px, 80px) scale(1.15); }
+    }
+    @keyframes float2 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(-80px, -60px) scale(1.1); }
+    }
+
+    /* Liquid Glass Material Classes */
+    .liquid-glass-nav {
+      background: rgba(18, 19, 24, 0.82);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .liquid-glass-card {
+      background: rgba(24, 25, 32, 0.6);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 12px 36px -10px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+      border-radius: 22px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .liquid-glass-card:hover {
+      transform: translateY(-5px) scale(1.01);
+      background: rgba(30, 32, 42, 0.75);
+      border-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 20px 48px -12px rgba(0, 145, 255, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.28);
+    }
+
+    .liquid-glass-pill {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      transition: all 0.25s ease;
+    }
+    .liquid-glass-pill:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+    .liquid-glass-pill.active {
+      background: #0091ff;
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 4px 18px rgba(0, 145, 255, 0.45);
+      color: #ffffff;
+    }
+
+    .apple-sheet {
+      background: rgba(22, 24, 30, 0.95);
+      backdrop-filter: blur(40px) saturate(200%);
+      -webkit-backdrop-filter: blur(40px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 25px 65px -15px rgba(0, 0, 0, 0.95), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+      border-radius: 28px;
+    }
+
+    /* Modal Backdrop */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.84);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body class="relative">
+
+  <!-- Aurora Ambient Background -->
+  <div class="aurora-bg">
+    <div class="aurora-blob-1"></div>
+    <div class="aurora-blob-2"></div>
+    <div class="aurora-blob-3"></div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="relative z-10 flex flex-col min-h-screen">
+
+    <!-- Top macOS / Liquid Glass Navigation Bar -->
+    <header class="sticky top-0 z-40 liquid-glass-nav px-4 lg:px-8 py-3.5 transition-all">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        
+        <!-- Logo & Window Dots (Double click logo triggers secret creator login) -->
+        <div class="flex items-center gap-4">
+          <div class="hidden sm:flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-[#ff5f56] border border-[#e0443e] inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-[#ffbd2e] border border-[#dea123] inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-[#27c93f] border border-[#1aab29] inline-block"></span>
+          </div>
+
+          <!-- Brand Logo -->
+          <div 
+            onclick="secretLogoClick()" 
+            title="Liquid Hub (Секретный вход: двойной клик)"
+            class="flex items-center gap-2.5 group cursor-pointer select-none"
+          >
+            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-apple-blue to-apple-cyan p-[1.5px] shadow-lg shadow-apple-blue/30 group-hover:scale-105 transition-transform">
+              <div class="w-full h-full bg-[#12131a] rounded-[14px] flex items-center justify-center">
+                <svg class="w-5 h-5 text-apple-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                  <line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="font-bold tracking-tight text-lg text-white">Liquid Hub</span>
+                <span class="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-apple-blue/20 text-apple-cyan border border-apple-cyan/30">By K0YE1</span>
+              </div>
+              <p class="text-[11px] text-zinc-400 hidden sm:block">Архивы .ZIP • Google Drive</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spotlight Search Bar -->
+        <div class="flex-1 max-w-md mx-2">
+          <div class="relative">
+            <input 
+              type="text" 
+              id="searchInput" 
+              placeholder="Поиск по названию, версии... (Cmd+K)" 
+              class="w-full pl-10 pr-12 py-2 rounded-full bg-white/[0.07] border border-white/10 text-sm text-white placeholder-zinc-400 focus:outline-none focus:border-apple-blue focus:bg-white/[0.12] focus:ring-2 focus:ring-apple-blue/20 transition-all"
+            >
+            <div class="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+            <div class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono text-zinc-400 bg-white/10 px-1.5 py-0.5 rounded border border-white/10">
+              ⌘K
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls Container -->
+        <div class="flex items-center gap-2.5">
+          
+          <!-- Creator "Создать" Button (Shown ONLY when logged in with Creator Password) -->
+          <button 
+            id="adminCreateBtn"
+            onclick="openCreateModal()" 
+            class="hidden items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium text-xs sm:text-sm border border-emerald-400/40 shadow-lg shadow-emerald-500/25 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>+ Новая раздача</span>
+          </button>
+
+          <!-- Export JSONs Button -->
+          <button 
+            id="adminExportBtn"
+            onclick="exportAllFiles()" 
+            title="Скачать Games.json и Soft.json для коммита в GitHub"
+            class="hidden liquid-glass-pill px-3 py-1.5 text-xs text-zinc-300 hover:text-white items-center gap-1.5 cursor-pointer"
+          >
+            <svg class="w-3.5 h-3.5 text-apple-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span class="hidden sm:inline">Экспорт JSON</span>
+          </button>
+
+          <!-- Auth Status Container -->
+          <div id="authContainer" class="flex items-center gap-2">
+            <!-- Filled by JS -->
+          </div>
+
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 max-w-7xl mx-auto px-4 lg:px-8 py-6 w-full space-y-6">
+
+      <!-- Guest 30s Warning Banner (Shown only when not logged in) -->
+      <div id="guestWarningBanner" class="liquid-glass-card p-3.5 border border-amber-500/30 bg-amber-950/20 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-2.5">
+          <span class="text-lg">⏳</span>
+          <div>
+            <span class="font-bold text-amber-300">Гостевой режим:</span>
+            <span class="text-zinc-300"> для гостей действует таймер ожидания 30 сек. перед скачиванием.</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="openLoginModal()" class="px-3.5 py-1.5 rounded-full bg-apple-blue hover:bg-blue-600 text-white font-semibold transition-colors flex items-center gap-1.5 shadow-md shadow-apple-blue/20 cursor-pointer">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24"><path fill="#fff" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#fff" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#fff" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#fff" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+            <span>Войти через Google (0 сек ожидания)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills & Export Bar -->
+      <section class="space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <!-- Main Categories -->
+          <div class="flex items-center gap-2 p-1.5 rounded-full bg-white/[0.05] border border-white/10 backdrop-blur-xl">
+            <button onclick="setCategory('all')" id="cat-all" class="liquid-glass-pill active px-4 py-1.5 text-xs sm:text-sm font-medium cursor-pointer">
+              Все релизы
+            </button>
+            <button onclick="setCategory('games')" id="cat-games" class="liquid-glass-pill px-4 py-1.5 text-xs sm:text-sm font-medium text-zinc-300 cursor-pointer">
+              🎮 ПК Игры (Games.json)
+            </button>
+            <button onclick="setCategory('software')" id="cat-software" class="liquid-glass-pill px-4 py-1.5 text-xs sm:text-sm font-medium text-zinc-300 cursor-pointer">
+              💻 ПК Софт (Soft.json)
+            </button>
+            <button onclick="setCategory('android_games')" id="cat-android_games" class="liquid-glass-pill px-4 py-1.5 text-xs sm:text-sm font-medium text-zinc-300 cursor-pointer flex items-center gap-1.5">
+              <span>🤖</span> <span>Android Игры</span>
+            </button>
+            <button onclick="setCategory('android_soft')" id="cat-android_soft" class="liquid-glass-pill px-4 py-1.5 text-xs sm:text-sm font-medium text-zinc-300 cursor-pointer flex items-center gap-1.5">
+              <span>📱</span> <span>Android Проги</span>
+            </button>
+          </div>
+
+          <!-- Crack Status Quick Filter -->
+          <div class="flex items-center gap-2 overflow-x-auto py-1 max-w-full">
+            <span class="text-xs text-zinc-500 whitespace-nowrap pl-1">Статус:</span>
+            <button onclick="setCrackFilter('all')" class="text-xs px-2.5 py-1 rounded-full bg-white/5 hover:bg-white/15 text-zinc-400 hover:text-white transition-colors cursor-pointer">Все</button>
+            <button onclick="setCrackFilter('cracked')" class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 transition-colors cursor-pointer">🔓 Взломанные</button>
+            <button onclick="setCrackFilter('clean')" class="text-xs px-2.5 py-1 rounded-full bg-sky-500/10 hover:bg-sky-500/20 text-sky-300 border border-sky-500/30 transition-colors cursor-pointer">🛡️ Лицензия / Free</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Games & Apps Grid -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <h2 id="sectionTitle" class="text-xl sm:text-2xl font-bold tracking-tight text-white">Каталог раздач K0YE1</h2>
+            <span id="itemsCountBadge" class="text-xs px-2 py-0.5 rounded-full bg-white/10 text-zinc-400 font-mono">0 раздач</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <button onclick="downloadJson('games')" class="text-zinc-400 hover:text-apple-cyan transition-colors underline cursor-pointer">
+              💾 Скачать Games.json
+            </button>
+            <span class="text-zinc-600">•</span>
+            <button onclick="downloadJson('soft')" class="text-zinc-400 hover:text-apple-cyan transition-colors underline cursor-pointer">
+              💾 Soft.json
+            </button>
+            <span class="text-zinc-600">•</span>
+            <button onclick="downloadJson('android_games')" class="text-zinc-400 hover:text-emerald-400 transition-colors underline cursor-pointer">
+              🤖 AndroidGames.json
+            </button>
+            <span class="text-zinc-600">•</span>
+            <button onclick="downloadJson('android_soft')" class="text-zinc-400 hover:text-emerald-400 transition-colors underline cursor-pointer">
+              📱 AndroidSoft.json
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Card Grid -->
+        <div id="cardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Filled by JavaScript -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-16 border-t border-white/10 py-8 px-4 lg:px-8 text-center text-xs text-zinc-500 space-y-3 relative z-10">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-zinc-400">
+          <span>Liquid Hub © 2026</span>
+          <span>•</span>
+          <span class="text-apple-cyan font-medium">Репаки и релизы от K0YE1</span>
+        </div>
+        <div class="flex items-center gap-4 text-zinc-400">
+          <span>Файлы: Games.json & Soft.json</span>
+          <span>•</span>
+          <span>Картинки: Gamesimages/ & Softimages/</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- 1. 30-Second Download Timer Modal -->
+  <div id="timerModal" class="modal-overlay">
+    <div class="apple-sheet w-full max-w-md p-6 sm:p-8 space-y-6 text-center relative animate-in fade-in zoom-in-95 duration-200">
+      
+      <button onclick="cancelTimer()" class="absolute top-4 right-4 w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-zinc-300 cursor-pointer">
+        ✕
+      </button>
+
+      <div class="relative w-24 h-24 mx-auto flex items-center justify-center">
+        <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.1)" stroke-width="6" fill="transparent"/>
+          <circle id="timerCircle" cx="50" cy="50" r="42" stroke="#0091ff" stroke-width="6" stroke-dasharray="264" stroke-dashoffset="0" stroke-linecap="round" fill="transparent" class="transition-all duration-1000 ease-linear"/>
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+          <span id="countdownNumber" class="text-3xl font-black text-white font-mono">30</span>
+          <span class="text-[9px] uppercase tracking-wider text-zinc-400">сек</span>
+        </div>
+      </div>
+
+      <div class="space-y-1.5">
+        <h3 id="timerTargetTitle" class="text-lg font-bold text-white truncate px-2">Подготовка загрузки...</h3>
+        <p class="text-xs text-zinc-400">
+          Вы скачиваете как гость. Пожалуйста, подождите завершения таймера.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <a 
+          id="readyDownloadBtn" 
+          href="#" 
+          target="_blank" 
+          class="hidden w-full py-3 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-sm shadow-lg shadow-emerald-500/30 items-center justify-center gap-2 transition-all cursor-pointer"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>⚡ Ссылка готова! Скачать архив .ZIP</span>
+        </a>
+
+        <div id="waitingPlaceholder" class="w-full py-2.5 rounded-full bg-white/5 border border-white/10 text-zinc-400 text-xs font-mono">
+          Генерация ссылки Google Drive...
+        </div>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-white/[0.04] border border-apple-cyan/30 space-y-2 text-xs">
+        <div class="flex items-center justify-center gap-1.5 text-apple-cyan font-bold">
+          <span>⚡ Не хотите ждать 30 секунд?</span>
+        </div>
+        <p class="text-zinc-400 text-[11px]">
+          Войдите через Google аккаунт один раз, и все раздачи будут скачиваться мгновенно в 1 клик!
+        </p>
+        <button 
+          onclick="cancelTimer(); openLoginModal()" 
+          class="w-full py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium flex items-center justify-center gap-2 transition-colors border border-white/15 cursor-pointer"
+        >
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Войти через Google и пропустить</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. Detail Modal Sheet -->
+  <div id="detailModal" class="modal-overlay">
+    <div class="apple-sheet w-full max-w-4xl max-h-[92vh] overflow-y-auto p-6 sm:p-8 space-y-6 relative animate-in fade-in zoom-in-95 duration-200">
+      <button onclick="closeDetailModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-zinc-300 hover:text-white transition-colors cursor-pointer">
+        ✕
+      </button>
+      <div id="detailModalContent"></div>
+    </div>
+  </div>
+
+  <!-- 3. Creator "Создать раздачу" Modal -->
+  <div id="createModal" class="modal-overlay">
+    <div class="apple-sheet w-full max-w-3xl max-h-[94vh] overflow-y-auto p-6 sm:p-8 space-y-6 relative">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-white/10">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 5v14M5 12h14"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-white">Добавить раздачу в каталог K0YE1</h3>
+            <p class="text-xs text-zinc-400">Сохраняется в Games.json или Soft.json</p>
+          </div>
+        </div>
+        <button onclick="closeCreateModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-zinc-300 cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <form id="createGameForm" onsubmit="handleCreateGame(event)" class="space-y-5 text-xs sm:text-sm">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="sm:col-span-2">
+            <label class="block text-zinc-300 font-medium mb-1">Название игры или программы *</label>
+            <input required id="newTitle" type="text" placeholder="Например: Cyberpunk 2077 или Photoshop 2025" class="w-full px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-apple-blue">
+          </div>
+          <div>
+            <label class="block text-zinc-300 font-medium mb-1">Категория *</label>
+            <select id="newCategory" onchange="handleCategoryChange(this.value)" class="w-full px-3.5 py-2 rounded-xl bg-[#1c1c24] border border-white/10 text-white focus:outline-none focus:border-apple-blue">
+              <option value="games">🎮 ПК Игра (Games.json)</option>
+              <option value="software">💻 ПК Программа (Soft.json)</option>
+              <option value="android_games">🤖 Android Игра (AndroidGames.json)</option>
+              <option value="android_soft">📱 Android Программа (AndroidSoft.json)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-zinc-300 font-medium mb-1">Статус взлома / Таблетка *</label>
+            <select id="newCrackStatus" class="w-full px-3.5 py-2 rounded-xl bg-[#1c1c24] border border-white/10 text-white focus:outline-none focus:border-apple-blue">
+              <option value="cracked_auto">🔓 Взломана (K0YE1 RePack / Автоактивация)</option>
+              <option value="cracked_rune">🔓 Взломана (Таблетка RUNE / CODEX вшита)</option>
+              <option value="clean_free">🟢 Бесплатная (Freeware / Open Source)</option>
+              <option value="clean_license">🛡️ Лицензия (Требует ключ / свой аккаунт)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-zinc-300 font-medium mb-1">Релиз / Автор репака</label>
+            <input id="newAuthor" type="text" value="Репак от K0YE1" class="w-full px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-apple-blue font-semibold text-apple-cyan">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-zinc-300 font-medium mb-1">Путь к обложке или URL *</label>
+          <input required id="newCoverUrl" type="text" placeholder="Gamesimages/cover.jpg" class="w-full px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-apple-blue">
+          <p id="coverHint" class="text-[11px] text-zinc-400 mt-1">
+            💡 Закиньте картинку в папку <code class="text-apple-cyan">Gamesimages/</code> и укажите: <code class="text-zinc-200">Gamesimages/ваша_картинка.jpg</code> (или вставьте прямую интернет-ссылку).
+          </p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white/[0.03] border border-apple-cyan/20 space-y-3">
+          <div class="flex items-center gap-2">
+            <span id="hardwareHeading" class="text-sm font-bold text-apple-cyan">⚡ Рекомендуем играть с (Железо ПК):</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div>
+              <label class="block text-zinc-400 text-xs mb-1">Процессор (CPU):</label>
+              <input id="newCpu" type="text" placeholder="Intel i7 / Ryzen 7" class="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs">
+            </div>
+            <div>
+              <label class="block text-zinc-400 text-xs mb-1">Видеокарта (GPU):</label>
+              <input id="newGpu" type="text" placeholder="RTX 3070 / RX 6700 XT" class="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs">
+            </div>
+            <div>
+              <label class="block text-zinc-400 text-xs mb-1">ОЗУ (Оперативка):</label>
+              <input id="newRam" type="text" placeholder="16 GB RAM" class="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs">
+            </div>
+            <div>
+              <label class="block text-zinc-400 text-xs mb-1">Видеопамять (VRAM):</label>
+              <input id="newVram" type="text" placeholder="8 GB VRAM" class="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs">
+            </div>
+          </div>
+        </div>
+
+                <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="text-sm font-semibold text-white">📦 Начальная версия (.ZIP с Google Drive):</div>
+            <button type="button" onclick="openDrivePicker('create')" class="px-2.5 py-1 rounded-full bg-apple-blue/20 hover:bg-apple-blue/30 text-apple-cyan border border-apple-cyan/30 text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-colors">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24"><path fill="currentColor" d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+              <span>🔍 Найти .ZIP на Google Диске</span>
+            </button>
+          </div>
+
+          <!-- Quick Drive Finder Mini-Bar -->
+          <div class="p-2.5 rounded-xl bg-black/40 border border-white/10 space-y-2">
+            <div class="flex items-center justify-between text-[11px]">
+              <span class="text-zinc-400 font-medium">Поиск архива в папке K0YE1 Google Drive:</span>
+              <a href="https://drive.google.com/drive/folders/1UFYxe5co2p7wynmUCBoNYvyPIz11uMr0" target="_blank" class="text-apple-cyan hover:underline">📁 Открыть папку на Диске ↗</a>
+            </div>
+            <div class="relative">
+              <input 
+                id="driveSearchInputCreate" 
+                type="text" 
+                oninput="searchDriveFiles('create', this.value)"
+                placeholder="Начните вводить название игры/программы для поиска .ZIP..." 
+                class="w-full pl-8 pr-3 py-1.5 rounded-lg bg-white/10 border border-white/15 text-white text-xs placeholder-zinc-500 focus:outline-none focus:border-apple-blue"
+              >
+              <svg class="w-3.5 h-3.5 text-zinc-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+            <div id="driveResultsCreate" class="hidden space-y-1 max-h-36 overflow-y-auto pr-1"></div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-zinc-400 text-xs mb-1">Номер версии *</label>
+              <input required id="newVersion" type="text" placeholder="v1.0 / Build 2026" class="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs">
+            </div>
+            <div>
+              <label class="block text-zinc-400 text-xs mb-1">Размер .ZIP архива *</label>
+              <input required id="newSize" type="text" placeholder="42.5 GB / 1.8 GB" class="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs">
+            </div>
+          </div>
+          <div>
+            <label class="block text-zinc-400 text-xs mb-1">Прямая ссылка на Google Drive (.ZIP) *</label>
+            <input required id="newDriveUrl" type="url" placeholder="https://drive.google.com/file/d/.../view?usp=sharing" class="w-full px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-apple-blue">
+          </div>
+          <div>
+            <label class="block text-zinc-400 text-xs mb-1">Примечание к версии (патчноут / особенности)</label>
+            <input id="newVersionNote" type="text" placeholder="Актуальный релиз со всеми DLC и кряком от K0YE1" class="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-zinc-300 font-medium mb-1">Жанр / Теги</label>
+            <input id="newGenre" type="text" placeholder="Action, RPG / Графика, Монтаж" class="w-full px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-apple-blue">
+          </div>
+          <div>
+            <label class="block text-zinc-300 font-medium mb-1">Краткое описание</label>
+            <input id="newDesc" type="text" placeholder="Особенности сборки: ничего не вырезано, распакуй и запускай..." class="w-full px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-apple-blue">
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-3 border-t border-white/10">
+          <button type="button" onclick="closeCreateModal()" class="px-5 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium transition-colors cursor-pointer">
+            Отмена
+          </button>
+          <button type="submit" class="px-6 py-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-semibold shadow-lg shadow-emerald-500/30 transition-colors cursor-pointer">
+            ✓ Опубликовать раздачу
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- 4. Creator "Добавить новую версию" Modal -->
+  <div id="addVersionModal" class="modal-overlay">
+    <div class="apple-sheet w-full max-w-lg p-6 sm:p-8 space-y-5 relative">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-white/10">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-apple-blue/20 border border-apple-blue/40 flex items-center justify-center text-apple-cyan">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 5v14M5 12h14"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">Выпуск новой версии</h3>
+            <p id="targetGameTitle" class="text-xs text-apple-cyan truncate max-w-[240px]">Релиз K0YE1</p>
+          </div>
+        </div>
+        <button onclick="closeAddVersionModal()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-zinc-300 cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <form id="addVersionForm" onsubmit="handleAppendVersion(event)" class="space-y-4 text-xs sm:text-sm">
+        <input type="hidden" id="targetGameId">
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-zinc-300 font-medium mb-1">Номер версии *</label>
+            <input required id="appendVersionName" type="text" placeholder="Например: v2.14 Hotfix" class="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-apple-blue">
+          </div>
+          <div>
+            <label class="block text-zinc-300 font-medium mb-1">Размер .ZIP архива *</label>
+            <input required id="appendVersionSize" type="text" placeholder="Например: 79.2 GB" class="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-apple-blue">
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="block text-zinc-300 font-medium">Прямая ссылка Google Drive (.ZIP) *</label>
+            <button type="button" onclick="openDrivePicker('append')" class="text-[11px] text-apple-cyan hover:underline font-semibold cursor-pointer">
+              🔍 Найти архив в папке Drive
+            </button>
+          </div>
+
+          <div class="relative">
+            <input 
+              id="driveSearchInputAppend" 
+              type="text" 
+              oninput="searchDriveFiles('append', this.value)"
+              placeholder="Поиск по имени файла на Google Диске..." 
+              class="w-full pl-8 pr-3 py-1.5 rounded-lg bg-white/10 border border-white/15 text-white text-xs placeholder-zinc-500 focus:outline-none focus:border-apple-blue mb-1"
+            >
+            <svg class="w-3.5 h-3.5 text-zinc-400 absolute left-2.5 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </div>
+          <div id="driveResultsAppend" class="hidden space-y-1 max-h-32 overflow-y-auto pr-1"></div>
+
+          <input required id="appendVersionDriveUrl" type="url" placeholder="https://drive.google.com/file/d/..." class="w-full px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-apple-blue">
+        </div>
+
+        <div>
+          <label class="block text-zinc-300 font-medium mb-1">Что нового в этой версии (патчноут / заметка от K0YE1)</label>
+          <input id="appendVersionNote" type="text" placeholder="Исправлены вылеты на Windows 11, обновлен кряк..." class="w-full px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-apple-blue">
+        </div>
+
+        <div class="flex items-center gap-2 pt-2">
+          <input type="checkbox" id="makeAsActive" checked class="rounded bg-white/10 border-white/20 text-apple-blue">
+          <label for="makeAsActive" class="text-xs text-zinc-300 cursor-pointer">Сделать эту версию основной (по умолчанию для скачивания)</label>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-3 border-t border-white/10">
+          <button type="button" onclick="closeAddVersionModal()" class="px-4 py-2 rounded-full bg-white/10 text-white text-xs font-medium cursor-pointer">
+            Отмена
+          </button>
+          <button type="submit" class="px-5 py-2 rounded-full bg-apple-blue hover:bg-blue-600 text-white text-xs font-semibold shadow-md shadow-apple-blue/30 cursor-pointer">
+            + Добавить версию
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- 5. Apple-Style Secure Sign-In Modal -->
+  <div id="loginModal" class="modal-overlay">
+    <div class="apple-sheet w-full max-w-md p-6 sm:p-8 space-y-5 text-center relative animate-in fade-in zoom-in-95 duration-200">
+      
+      <button onclick="closeLoginModal()" class="absolute top-4 right-4 w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-zinc-300 cursor-pointer">
+        ✕
+      </button>
+
+      <div class="w-16 h-16 mx-auto rounded-3xl bg-white/10 border border-white/20 flex items-center justify-center shadow-xl">
+        <svg class="w-8 h-8" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+        </svg>
+      </div>
+
+      <div class="space-y-1.5">
+        <h3 class="text-xl font-bold text-white">Вход через Google</h3>
+        <p class="text-xs text-zinc-400">Авторизованные пользователи скачивают архивы сразу (без 30 сек. ожидания).</p>
+      </div>
+
+      <!-- Real Google Official One Tap / Sign In Button Container -->
+      <div class="space-y-3">
+        <div id="g_id_signin_wrapper" class="flex justify-center items-center py-2 min-h-[44px]">
+          <!-- Google Official Button rendered dynamically here -->
+          <div id="googleBtnContainer" class="flex justify-center"></div>
+        </div>
+        
+        <div class="flex items-center gap-3 text-zinc-500 text-xs">
+          <div class="flex-1 h-px bg-white/10"></div>
+          <span>или вручную по Email / Создатель K0YE1</span>
+          <div class="flex-1 h-px bg-white/10"></div>
+        </div>
+
+        <div class="space-y-3 text-left">
+          <div>
+            <label class="block text-xs text-zinc-400 font-medium mb-1">Google Email аккаунта:</label>
+            <input 
+              id="loginEmailInput" 
+              type="email" 
+              placeholder="metaquestvropen@gmail.com" 
+              class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/15 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-apple-blue"
+            >
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-xs text-zinc-400 font-medium">Пароль (только для Создателя K0YE1):</label>
+              <span class="text-[10px] text-zinc-500">Для гостей пусто</span>
+            </div>
+            <input 
+              id="loginPasswordInput" 
+              type="password" 
+              placeholder="Введите мастер-пароль админа" 
+              class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/15 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-apple-blue"
+            >
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 pt-2">
+          <button onclick="closeLoginModal()" class="flex-1 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-medium transition-colors cursor-pointer">
+            Отмена
+          </button>
+          <button onclick="submitLogin()" class="flex-1 py-2.5 rounded-full bg-apple-blue hover:bg-blue-600 text-white text-xs sm:text-sm font-semibold transition-colors shadow-lg shadow-apple-blue/30 cursor-pointer">
+            Войти
+          </button>
+        </div>
+
+        <!-- Google Client ID Config Info (Collapsible for K0YE1 setup) -->
+        <div class="pt-2 text-left">
+          <details class="text-[11px] text-zinc-400 cursor-pointer bg-white/[0.02] p-2.5 rounded-xl border border-white/5">
+            <summary class="font-medium text-apple-cyan hover:underline">⚙️ Настройка Google Client ID (Google Cloud Console)</summary>
+            <div class="mt-2 space-y-2 text-zinc-400">
+              <p>Для работы нативного всплывающего окна Google OAuth на GitHub Pages введите ваш Google Client ID (из Google Cloud Console):</p>
+              <div class="flex gap-2">
+                <input id="customGoogleClientId" type="text" placeholder="например: 123456789-abc.apps.googleusercontent.com" class="flex-1 px-2.5 py-1.5 rounded-lg bg-black/40 border border-white/15 text-white text-xs">
+                <button onclick="saveGoogleClientId()" class="px-3 py-1.5 rounded-lg bg-apple-blue text-white text-xs font-semibold cursor-pointer">Сохранить</button>
+              </div>
+            </div>
+          </details>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  
+  <!-- 6. Google Drive Zip Picker Modal -->
+  <div id="drivePickerModal" class="modal-overlay">
+    <div class="apple-sheet w-full max-w-2xl p-6 sm:p-7 space-y-5 relative animate-in fade-in zoom-in-95 duration-200">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-white/10">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-apple-blue/20 border border-apple-blue/40 flex items-center justify-center text-apple-cyan">
+            <svg class="w-6 h-6" viewBox="0 0 24 24"><path fill="currentColor" d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+              <span>Google Drive .ZIP Репозиторий</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">K0YE1 DRIVE</span>
+            </h3>
+            <p class="text-xs text-zinc-400">Выберите .ZIP архив из вашей официальной папки Google Drive</p>
+          </div>
+        </div>
+        <button onclick="closeDrivePicker()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-zinc-300 cursor-pointer">✕</button>
+      </div>
+
+      <!-- Search & Refresh bar -->
+      <div class="flex items-center gap-2">
+        <div class="relative flex-1">
+          <input 
+            id="modalDriveSearchInput" 
+            type="text" 
+            oninput="renderDriveModalList(this.value)"
+            placeholder="Быстрый поиск по названию .ZIP архива..." 
+            class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white/10 border border-white/15 text-white placeholder-zinc-500 text-xs sm:text-sm focus:outline-none focus:border-apple-blue"
+          >
+          <svg class="w-4 h-4 text-zinc-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+        <button 
+          onclick="syncDriveFolder()" 
+          title="Обновить список с Google Drive" 
+          class="px-3.5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-apple-cyan border border-white/10 text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-colors"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+          <span class="hidden sm:inline">Обновить</span>
+        </button>
+        <a 
+          href="https://drive.google.com/drive/folders/1UFYxe5co2p7wynmUCBoNYvyPIz11uMr0" 
+          target="_blank" 
+          class="px-3.5 py-2.5 rounded-xl bg-apple-blue/20 hover:bg-apple-blue/30 text-white border border-apple-blue/40 text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-colors"
+        >
+          <span>Папка Drive ↗</span>
+        </a>
+      </div>
+
+      <!-- Quick Add New Zip to Index -->
+      <details class="text-xs bg-white/[0.02] border border-white/5 rounded-xl p-2.5">
+        <summary class="font-medium text-apple-cyan cursor-pointer hover:underline">+ Добавить новый .ZIP в индекс поиска вручную</summary>
+        <div class="mt-2 grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <input id="quickZipName" type="text" placeholder="Имя архива (например: GTA_V_K0YE1.zip)" class="sm:col-span-1 px-2.5 py-1.5 rounded-lg bg-black/40 border border-white/15 text-white text-xs">
+          <input id="quickZipUrl" type="url" placeholder="Ссылка на файл Drive" class="sm:col-span-1 px-2.5 py-1.5 rounded-lg bg-black/40 border border-white/15 text-white text-xs">
+          <div class="flex gap-1.5">
+            <input id="quickZipSize" type="text" placeholder="Размер (напр. 65 GB)" class="flex-1 px-2.5 py-1.5 rounded-lg bg-black/40 border border-white/15 text-white text-xs">
+            <button type="button" onclick="addManualZipToDriveIndex()" class="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs cursor-pointer">Добавить</button>
+          </div>
+        </div>
+      </details>
+
+      <!-- Zip List Container -->
+      <div id="driveModalZipList" class="space-y-2 max-h-72 overflow-y-auto pr-1">
+        <!-- Rendered by JS -->
+      </div>
+
+      <div class="flex items-center justify-between pt-2 border-t border-white/10 text-xs text-zinc-400">
+        <span>Папка: <code class="text-zinc-300">...1UFYxe5co2p7wynmUCBoNYvyPIz11uMr0</code></span>
+        <button onclick="closeDrivePicker()" class="px-4 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium cursor-pointer">Закрыть</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    // Security: Only this email + password activates Creator Admin
+    const CREATOR_EMAIL = "metaquestvropen@gmail.com";
+    const MASTER_ADMIN_PASS = "koyel2026"; // Мастер-пароль админа K0YE1
+
+    // State Variables
+    let currentUserEmail = null;
+    let currentUserPicture = null;
+    let currentUserName = null;
+    let isCreatorMode = false;
+
+    // Catalogs
+    let gamesList = [];
+    let softList = [];
+    let androidGamesList = [];
+    let androidSoftList = [];
+
+    let currentCategory = 'all';
+    let currentCrackFilter = 'all';
+    let currentSearchQuery = '';
+
+    // Timer State
+    let countdownInterval = null;
+    let currentTimerSeconds = 30;
+
+    // Modal helpers (reliable style.display)
+    function showModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'flex';
+    }
+
+    function hideModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    }
+
+    // Cookie helpers
+    function setCookie(name, value, days = 60) {
+      const expires = new Date(Date.now() + days * 864e5).toUTCString();
+      document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
+    }
+
+    function getCookie(name) {
+      return document.cookie.split('; ').reduce((r, v) => {
+        const parts = v.split('=');
+        return parts[0] === name ? decodeURIComponent(parts[1]) : r;
+      }, '');
+    }
+
+    function deleteCookie(name) {
+      setCookie(name, '', -1);
+    }
+
+    // JWT decode for Google Identity Services Token (Official OAuth2 parser)
+    function decodeJwtResponse(token) {
+      try {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+      } catch(e) {
+        console.error("JWT Decode error", e);
+        return null;
+      }
+    }
+
+    // ==================== INITIALIZATION ====================
+    async function init() {
+      // 1. Session check
+      const cookieEmail = getCookie('k0ye1_user_email');
+      const storedEmail = localStorage.getItem('k0ye1_user_email');
+      currentUserEmail = cookieEmail || storedEmail || null;
+      currentUserPicture = localStorage.getItem('k0ye1_user_picture') || null;
+      currentUserName = localStorage.getItem('k0ye1_user_name') || null;
+
+      const adminToken = localStorage.getItem('k0ye1_admin_auth');
+      isCreatorMode = (adminToken === 'authorized_k0ye1_creator');
+
+      // 2. Load JSON files safely (PC + Android)
+      let loadedGames = [];
+      let loadedSoft = [];
+      let loadedAndroidGames = [];
+      let loadedAndroidSoft = [];
+
+      try {
+        const res = await fetch('Games.json');
+        if (res.ok) loadedGames = await res.json();
+      } catch(e) {}
+
+      try {
+        const res = await fetch('Soft.json');
+        if (res.ok) loadedSoft = await res.json();
+      } catch(e) {}
+
+      try {
+        const res = await fetch('AndroidGames.json');
+        if (res.ok) loadedAndroidGames = await res.json();
+      } catch(e) {}
+
+      try {
+        const res = await fetch('AndroidSoft.json');
+        if (res.ok) loadedAndroidSoft = await res.json();
+      } catch(e) {}
+
+      // Fallback from localStorage
+      const storedGames = localStorage.getItem('k0ye1_games_data');
+      if (storedGames && (!loadedGames || loadedGames.length === 0)) {
+        try { loadedGames = JSON.parse(storedGames); } catch(e){}
+      }
+
+      const storedSoft = localStorage.getItem('k0ye1_soft_data');
+      if (storedSoft && (!loadedSoft || loadedSoft.length === 0)) {
+        try { loadedSoft = JSON.parse(storedSoft); } catch(e){}
+      }
+
+      const storedAndroidGames = localStorage.getItem('k0ye1_android_games_data');
+      if (storedAndroidGames && (!loadedAndroidGames || loadedAndroidGames.length === 0)) {
+        try { loadedAndroidGames = JSON.parse(storedAndroidGames); } catch(e){}
+      }
+
+      const storedAndroidSoft = localStorage.getItem('k0ye1_android_soft_data');
+      if (storedAndroidSoft && (!loadedAndroidSoft || loadedAndroidSoft.length === 0)) {
+        try { loadedAndroidSoft = JSON.parse(storedAndroidSoft); } catch(e){}
+      }
+
+      gamesList = loadedGames || [];
+      softList = loadedSoft || [];
+      androidGamesList = loadedAndroidGames || [];
+      androidSoftList = loadedAndroidSoft || [];
+
+      persistData();
+      updateAuthUI();
+      renderCatalog();
+
+      // Initialize Google Identity Services
+      initGoogleIdentity();
+
+      // Keyboard shortcuts
+      window.addEventListener('keydown', (e) => {
+        // Spotlight Search (Cmd+K / Ctrl+K)
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          const search = document.getElementById('searchInput');
+          if (search) search.focus();
+        }
+        // Secret Creator Shortcut (Ctrl + Shift + K)
+        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          secretAdminPrompt();
+        }
+        if (e.key === 'Escape') {
+          closeDetailModal();
+          closeCreateModal();
+          closeAddVersionModal();
+          closeLoginModal();
+          cancelTimer();
+        }
+      });
+
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          currentSearchQuery = e.target.value.toLowerCase().trim();
+          renderCatalog();
+        });
+      }
+    }
+
+    function persistData() {
+      localStorage.setItem('k0ye1_games_data', JSON.stringify(gamesList));
+      localStorage.setItem('k0ye1_soft_data', JSON.stringify(softList));
+      localStorage.setItem('k0ye1_android_games_data', JSON.stringify(androidGamesList));
+      localStorage.setItem('k0ye1_android_soft_data', JSON.stringify(androidSoftList));
+    }
+
+    function getAllItems() {
+      return [...gamesList, ...softList, ...androidGamesList, ...androidSoftList];
+    }
+
+    // ==================== GOOGLE IDENTITY SERVICES (GIS) ====================
+    function getGoogleClientId() {
+      return localStorage.getItem('k0ye1_google_client_id') || "366921002305-eti5kh9g7s27dal33c00t4c70pcjfu1v.apps.googleusercontent.com";
+    }
+
+    function saveGoogleClientId() {
+      const input = document.getElementById('customGoogleClientId');
+      if (!input || !input.value.trim()) return;
+      localStorage.setItem('k0ye1_google_client_id', input.value.trim());
+      alert("✅ Google Client ID сохранён! Перезапуск авторизации...");
+      initGoogleIdentity();
+    }
+
+    function initGoogleIdentity() {
+      const savedId = localStorage.getItem('k0ye1_google_client_id');
+      const input = document.getElementById('customGoogleClientId');
+      if (input && savedId) input.value = savedId;
+
+      if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+        try {
+          google.accounts.id.initialize({
+            client_id: getGoogleClientId(),
+            callback: handleGoogleCredentialResponse,
+            auto_select: false,
+            cancel_on_tap_outside: true
+          });
+
+          const container = document.getElementById('googleBtnContainer');
+          if (container) {
+            container.innerHTML = '';
+            google.accounts.id.renderButton(container, {
+              theme: 'filled_black',
+              size: 'large',
+              shape: 'pill',
+              text: 'continue_with',
+              logo_alignment: 'left',
+              width: 280
+            });
+          }
+        } catch(err) {
+          console.warn("Google GIS init notice:", err);
+        }
+      }
+    }
+
+    // Called automatically by Google upon user authenticating via real Google Popup
+    function handleGoogleCredentialResponse(response) {
+      if (!response || !response.credential) return;
+      const data = decodeJwtResponse(response.credential);
+      if (!data) return;
+
+      const email = data.email || '';
+      const name = data.name || email.split('@')[0];
+      const picture = data.picture || null;
+
+      currentUserEmail = email;
+      currentUserName = name;
+      currentUserPicture = picture;
+
+      setCookie('k0ye1_user_email', email, 60);
+      localStorage.setItem('k0ye1_user_email', email);
+      if (picture) localStorage.setItem('k0ye1_user_picture', picture);
+      if (name) localStorage.setItem('k0ye1_user_name', name);
+
+      // Creator check
+      if (email.toLowerCase() === CREATOR_EMAIL.toLowerCase()) {
+        const pass = prompt("👑 Google аккаунт K0YE1 подтверждён! Введите мастер-пароль админа:");
+        if (pass === MASTER_ADMIN_PASS) {
+          isCreatorMode = true;
+          localStorage.setItem('k0ye1_admin_auth', 'authorized_k0ye1_creator');
+          alert("👑 Добро пожаловать, Создатель K0YE1! Полный доступ активирован.");
+        } else {
+          isCreatorMode = false;
+          localStorage.removeItem('k0ye1_admin_auth');
+          alert("⚠️ Мастер-пароль не введён. Вход выполнен как обычный верифицированный Google-пользователь.");
+        }
+      } else {
+        isCreatorMode = false;
+        localStorage.removeItem('k0ye1_admin_auth');
+        alert("✅ Добро пожаловать, " + name + "! Таймер скачивания отключен (0 сек).");
+      }
+
+      closeLoginModal();
+      cancelTimer();
+      updateAuthUI();
+      renderCatalog();
+    }
+
+    // ==================== SECRET CREATOR SHORTCUTS ====================
+    let logoClickCount = 0;
+    let logoTimer = null;
+    function secretLogoClick() {
+      logoClickCount++;
+      clearTimeout(logoTimer);
+      if (logoClickCount >= 2) {
+        logoClickCount = 0;
+        secretAdminPrompt();
+      } else {
+        logoTimer = setTimeout(() => { logoClickCount = 0; }, 400);
+      }
+    }
+
+    function secretAdminPrompt() {
+      const pass = prompt("🔐 Панель создателя K0YE1. Введите мастер-пароль:");
+      if (!pass) return;
+
+      if (pass === MASTER_ADMIN_PASS) {
+        currentUserEmail = CREATOR_EMAIL;
+        currentUserName = "K0YE1";
+        isCreatorMode = true;
+        setCookie('k0ye1_user_email', CREATOR_EMAIL, 60);
+        localStorage.setItem('k0ye1_user_email', CREATOR_EMAIL);
+        localStorage.setItem('k0ye1_admin_auth', 'authorized_k0ye1_creator');
+        updateAuthUI();
+        renderCatalog();
+        alert("👑 Добро пожаловать, Создатель K0YE1! Панель управления активирована.");
+      } else {
+        alert("❌ Неверный пароль!");
+      }
+    }
+
+    // ==================== AUTH SYSTEM ====================
+    function updateAuthUI() {
+      const authContainer = document.getElementById('authContainer');
+      const adminCreateBtn = document.getElementById('adminCreateBtn');
+      const adminExportBtn = document.getElementById('adminExportBtn');
+      const guestWarningBanner = document.getElementById('guestWarningBanner');
+
+      // Creator Admin Controls (Visible ONLY for authorized Creator)
+      if (isCreatorMode) {
+        if (adminCreateBtn) { adminCreateBtn.classList.remove('hidden'); adminCreateBtn.classList.add('flex'); }
+        if (adminExportBtn) { adminExportBtn.classList.remove('hidden'); adminExportBtn.classList.add('flex'); }
+      } else {
+        if (adminCreateBtn) { adminCreateBtn.classList.add('hidden'); adminCreateBtn.classList.remove('flex'); }
+        if (adminExportBtn) { adminExportBtn.classList.add('hidden'); adminExportBtn.classList.remove('flex'); }
+      }
+
+      // Guest banner visibility
+      if (guestWarningBanner) {
+        if (currentUserEmail) {
+          guestWarningBanner.classList.add('hidden');
+        } else {
+          guestWarningBanner.classList.remove('hidden');
+        }
+      }
+
+      // Header Button
+      if (currentUserEmail) {
+        const username = currentUserName || currentUserEmail.split('@')[0];
+        const avatarHtml = currentUserPicture 
+          ? `<img src="${currentUserPicture}" class="w-5 h-5 rounded-full object-cover">`
+          : `<span class="w-2 h-2 rounded-full ${isCreatorMode ? 'bg-emerald-400 animate-pulse' : 'bg-apple-blue'}"></span>`;
+
+        authContainer.innerHTML = `
+          <div class="flex items-center gap-2 p-1 pl-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-md">
+            <div class="flex items-center gap-1.5 text-xs text-zinc-200">
+              ${avatarHtml}
+              <span class="font-medium max-w-[120px] truncate">${username}</span>
+              ${isCreatorMode ? '<span class="text-[9px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded font-mono font-bold">K0YE1</span>' : '<span class="text-[9px] bg-apple-blue/20 text-apple-cyan px-1 py-0.5 rounded font-mono">GOOGLE</span>'}
+            </div>
+            <button onclick="handleLogout()" title="Выйти" class="w-6 h-6 rounded-full bg-white/10 hover:bg-white/25 flex items-center justify-center text-zinc-400 hover:text-white transition-colors text-xs cursor-pointer">
+              ✕
+            </button>
+          </div>
+        `;
+      } else {
+        authContainer.innerHTML = `
+          <button 
+            onclick="openLoginModal()" 
+            class="liquid-glass-pill px-3.5 py-1.5 flex items-center gap-2 text-xs font-semibold text-white hover:text-apple-blue transition-all cursor-pointer"
+          >
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Войти</span>
+          </button>
+        `;
+      }
+    }
+
+    function openLoginModal() {
+      showModal('loginModal');
+      initGoogleIdentity();
+      const input = document.getElementById('loginEmailInput');
+      if (input) setTimeout(() => input.focus(), 100);
+    }
+
+    function closeLoginModal() {
+      hideModal('loginModal');
+    }
+
+    function submitLogin() {
+      const emailInput = document.getElementById('loginEmailInput');
+      const passInput = document.getElementById('loginPasswordInput');
+
+      const email = emailInput ? emailInput.value.trim() : '';
+      const pass = passInput ? passInput.value.trim() : '';
+
+      if (!email || !email.includes('@')) {
+        alert("Пожалуйста, введите корректный адрес электронной почты Google!");
+        return;
+      }
+
+      currentUserEmail = email;
+      currentUserName = email.split('@')[0];
+      setCookie('k0ye1_user_email', email, 60);
+      localStorage.setItem('k0ye1_user_email', email);
+
+      // Check if Creator credentials
+      if (email.toLowerCase() === CREATOR_EMAIL.toLowerCase()) {
+        if (pass === MASTER_ADMIN_PASS) {
+          isCreatorMode = true;
+          localStorage.setItem('k0ye1_admin_auth', 'authorized_k0ye1_creator');
+          alert("👑 Пароль подтверждён! Добро пожаловать, Создатель K0YE1.");
+        } else {
+          isCreatorMode = false;
+          localStorage.removeItem('k0ye1_admin_auth');
+          alert("⚠️ Пароль создателя не введён или неверен. Вход выполнен в режиме обычного пользователя (без админ-панели).");
+        }
+      } else {
+        isCreatorMode = false;
+        localStorage.removeItem('k0ye1_admin_auth');
+        alert("✅ Вы успешно вошли (" + email + ")! Таймер 30 секунд отключен.");
+      }
+
+      closeLoginModal();
+      cancelTimer();
+      updateAuthUI();
+      renderCatalog();
+    }
+
+    function handleLogout() {
+      if (confirm("Выйти из аккаунта? Снова включится таймер 30 секунд для гостей.")) {
+        currentUserEmail = null;
+        currentUserPicture = null;
+        currentUserName = null;
+        isCreatorMode = false;
+        deleteCookie('k0ye1_user_email');
+        localStorage.removeItem('k0ye1_user_email');
+        localStorage.removeItem('k0ye1_user_picture');
+        localStorage.removeItem('k0ye1_user_name');
+        localStorage.removeItem('k0ye1_admin_auth');
+        updateAuthUI();
+        renderCatalog();
+      }
+    }
+
+    // ==================== 30-SECOND DOWNLOAD LOGIC ====================
+    function triggerDownload(driveUrl, itemName) {
+      if (currentUserEmail) {
+        window.open(driveUrl, '_blank');
+        return;
+      }
+      openDownloadTimer(driveUrl, itemName);
+    }
+
+    function openDownloadTimer(driveUrl, itemName) {
+      const titleElem = document.getElementById('timerTargetTitle');
+      const countdownElem = document.getElementById('countdownNumber');
+      const circleElem = document.getElementById('timerCircle');
+      const readyBtn = document.getElementById('readyDownloadBtn');
+      const placeholder = document.getElementById('waitingPlaceholder');
+
+      if (titleElem) titleElem.textContent = itemName || 'Архив .ZIP';
+      if (readyBtn) {
+        readyBtn.href = driveUrl;
+        readyBtn.classList.add('hidden');
+        readyBtn.classList.remove('flex');
+      }
+      if (placeholder) placeholder.classList.remove('hidden');
+
+      currentTimerSeconds = 30;
+      if (countdownElem) countdownElem.textContent = currentTimerSeconds;
+
+      const circumference = 264;
+      if (circleElem) circleElem.style.strokeDashoffset = '0';
+
+      showModal('timerModal');
+
+      if (countdownInterval) clearInterval(countdownInterval);
+
+      countdownInterval = setInterval(() => {
+        currentTimerSeconds--;
+        if (countdownElem) countdownElem.textContent = currentTimerSeconds;
+
+        const progress = (30 - currentTimerSeconds) / 30;
+        if (circleElem) circleElem.style.strokeDashoffset = `${progress * circumference}`;
+
+        if (currentTimerSeconds <= 0) {
+          clearInterval(countdownInterval);
+          if (countdownElem) countdownElem.textContent = '0';
+          if (placeholder) placeholder.classList.add('hidden');
+          if (readyBtn) {
+            readyBtn.classList.remove('hidden');
+            readyBtn.classList.add('flex');
+          }
+        }
+      }, 1000);
+    }
+
+    function cancelTimer() {
+      if (countdownInterval) clearInterval(countdownInterval);
+      hideModal('timerModal');
+    }
+
+    // ==================== DYNAMIC HARDWARE & IMAGE HINT ====================
+    function handleCategoryChange(cat) {
+      const heading = document.getElementById('hardwareHeading');
+      const coverInput = document.getElementById('newCoverUrl');
+      const coverHint = document.getElementById('coverHint');
+
+      if (cat === 'software') {
+        if (heading) heading.textContent = '⚡ Рекомендуем для комфортной работы (Железо ПК):';
+        if (coverInput && (!coverInput.value || coverInput.value.startsWith('Gamesimages/') || coverInput.value.startsWith('Androidimages/'))) {
+          coverInput.placeholder = 'Softimages/cover.jpg';
+        }
+        if (coverHint) {
+          coverHint.innerHTML = '💡 Закиньте картинку в папку <code class="text-apple-cyan">Softimages/</code> и укажите: <code class="text-zinc-200">Softimages/ваша_картинка.jpg</code> (или прямую ссылку).';
+        }
+      } else if (cat === 'android_games') {
+        if (heading) heading.textContent = '⚡ Рекомендуем для игры (Требования Android):';
+        if (coverInput && (!coverInput.value || coverInput.value.startsWith('Gamesimages/') || coverInput.value.startsWith('Softimages/'))) {
+          coverInput.placeholder = 'Androidimages/game.jpg';
+        }
+        if (coverHint) {
+          coverHint.innerHTML = '💡 Закиньте картинку в папку <code class="text-apple-cyan">Androidimages/</code> и укажите: <code class="text-zinc-200">Androidimages/game.jpg</code> (или прямую ссылку).';
+        }
+      } else if (cat === 'android_soft') {
+        if (heading) heading.textContent = '⚡ Рекомендуем для работы (Требования Android):';
+        if (coverInput && (!coverInput.value || coverInput.value.startsWith('Gamesimages/') || coverInput.value.startsWith('Softimages/'))) {
+          coverInput.placeholder = 'Androidimages/app.jpg';
+        }
+        if (coverHint) {
+          coverHint.innerHTML = '💡 Закиньте картинку в папку <code class="text-apple-cyan">Androidimages/</code> и укажите: <code class="text-zinc-200">Androidimages/app.jpg</code> (или прямую ссылку).';
+        }
+      } else {
+        if (heading) heading.textContent = '⚡ Рекомендуем играть с (Железо ПК):';
+        if (coverInput && (!coverInput.value || coverInput.value.startsWith('Softimages/') || coverInput.value.startsWith('Androidimages/'))) {
+          coverInput.placeholder = 'Gamesimages/cover.jpg';
+        }
+        if (coverHint) {
+          coverHint.innerHTML = '💡 Закиньте картинку в папку <code class="text-apple-cyan">Gamesimages/</code> и укажите: <code class="text-zinc-200">Gamesimages/ваша_картинка.jpg</code> (или прямую ссылку).';
+        }
+      }
+    }
+
+    // ==================== VERSION SWITCHING LOGIC ====================
+    function selectCardVersion(itemId, versionId) {
+      let item = getAllItems().find(x => x.id === itemId);
+      if (!item) return;
+      item.selectedVersionId = versionId;
+      persistData();
+      renderCatalog();
+    }
+
+    // ==================== FILTERS & SEARCH ====================
+    function setCategory(cat) {
+      currentCategory = cat;
+      ['all', 'games', 'software', 'android_games', 'android_soft'].forEach(c => {
+        const btn = document.getElementById('cat-' + c);
+        if (btn) {
+          if (c === cat) {
+            btn.classList.add('active');
+            btn.classList.remove('text-zinc-300');
+          } else {
+            btn.classList.remove('active');
+            btn.classList.add('text-zinc-300');
+          }
+        }
+      });
+      renderCatalog();
+    }
+
+    function setCrackFilter(filter) {
+      currentCrackFilter = filter;
+      renderCatalog();
+    }
+
+    // ==================== DELETE CARD FUNCTION ====================
+    function deleteCard(id, event) {
+      if (event) event.stopPropagation();
+
+      if (!isCreatorMode) {
+        alert("Действие доступно только создателю K0YE1!");
+        return;
+      }
+
+      const all = getAllItems();
+      const item = all.find(x => x.id === id);
+      if (!item) return;
+
+      const confirmText = `Вы действительно хотите навсегда удалить «${item.title}» из каталога?`;
+      if (!confirm(confirmText)) return;
+
+      gamesList = gamesList.filter(g => g.id !== id);
+      softList = softList.filter(s => s.id !== id);
+      androidGamesList = androidGamesList.filter(g => g.id !== id);
+      androidSoftList = androidSoftList.filter(s => s.id !== id);
+      persistData();
+
+      closeDetailModal();
+      renderCatalog();
+    }
+
+    // ==================== CATALOG RENDERING ====================
+    function renderCatalog() {
+      const grid = document.getElementById('cardsGrid');
+      const badge = document.getElementById('itemsCountBadge');
+      const secTitle = document.getElementById('sectionTitle');
+
+      let list = [];
+      if (currentCategory === 'all') {
+        list = [...gamesList, ...softList, ...androidGamesList, ...androidSoftList];
+        if (secTitle) secTitle.textContent = 'Все релизы от K0YE1';
+      } else if (currentCategory === 'games') {
+        list = gamesList;
+        if (secTitle) secTitle.textContent = 'ПК Игры от K0YE1';
+      } else if (currentCategory === 'software') {
+        list = softList;
+        if (secTitle) secTitle.textContent = 'ПК Программы от K0YE1';
+      } else if (currentCategory === 'android_games') {
+        list = androidGamesList;
+        if (secTitle) secTitle.textContent = '🤖 Android Игры (.APK / .ZIP) от K0YE1';
+      } else if (currentCategory === 'android_soft') {
+        list = androidSoftList;
+        if (secTitle) secTitle.textContent = '📱 Android Программы (.APK / .ZIP) от K0YE1';
+      }
+
+      const filtered = list.filter(item => {
+        if (currentCrackFilter === 'cracked' && !item.isCracked) return false;
+        if (currentCrackFilter === 'clean' && item.isCracked) return false;
+
+        if (currentSearchQuery) {
+          const versionsNames = (item.versions || []).map(v => v.name).join(' ');
+          const combined = (item.title + ' ' + (item.author || '') + ' ' + (item.genre || '') + ' ' + (item.crackLabel || '') + ' ' + versionsNames).toLowerCase();
+          if (!combined.includes(currentSearchQuery)) return false;
+        }
+        return true;
+      });
+
+      if (badge) badge.textContent = `${filtered.length} релизов`;
+
+      // Empty State
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-20 px-4 text-center liquid-glass-card border border-white/10 p-8 space-y-4">
+            <div class="w-16 h-16 mx-auto rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center text-3xl">
+              🎮
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-lg font-bold text-white">Каталог пока пуст</h3>
+              <p class="text-xs text-zinc-400 max-w-md mx-auto">
+                ${isCreatorMode ? 'Нажмите «+ Новая раздача», чтобы опубликовать первый релиз от K0YE1.' : 'Релизы от K0YE1 скоро появятся здесь.'}
+              </p>
+            </div>
+            ${isCreatorMode ? `
+              <button 
+                onclick="openCreateModal()" 
+                class="px-5 py-2.5 rounded-full bg-apple-blue hover:bg-blue-600 text-white font-semibold text-xs shadow-lg shadow-apple-blue/30 inline-flex items-center gap-2 cursor-pointer transition-all"
+              >
+                <span>+ Добавить раздачу</span>
+              </button>
+            ` : ''}
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => {
+        const versions = item.versions || [];
+        const activeVersion = versions.find(v => v.id === item.selectedVersionId) || versions[0] || { name: 'v1.0', size: item.size, driveUrl: item.driveUrl };
+
+        const isSoft = item.category === 'software';
+        const isAndroidGame = item.category === 'android_games';
+        const isAndroidSoft = item.category === 'android_soft';
+
+        let categoryBadge = '🎮 ПК Игра';
+        if (isSoft) categoryBadge = '💻 ПК Софт';
+        if (isAndroidGame) categoryBadge = '🤖 Android Игра';
+        if (isAndroidSoft) categoryBadge = '📱 Android Прога';
+
+        let hardwareHeading = '⚡ РЕКОМЕНДУЕМ ИГРАТЬ С:';
+        if (isSoft) hardwareHeading = '⚡ РЕКОМЕНДУЕМ ДЛЯ РАБОТЫ:';
+        if (isAndroidGame) hardwareHeading = '⚡ РЕКОМЕНДУЕМ ДЛЯ ANDROID ИГРЫ:';
+        if (isAndroidSoft) hardwareHeading = '⚡ РЕКОМЕНДУЕМ ДЛЯ ANDROID:';
+
+        const escapedTitle = item.title.replace(/'/g, "\'");
+
+        return `
+        <div class="liquid-glass-card overflow-hidden flex flex-col group border border-white/10 hover:border-apple-cyan/40 transition-all duration-300">
+          
+          <!-- Card Image & Header Badges -->
+          <div class="relative h-48 overflow-hidden bg-black/60">
+            <img 
+              src="${item.cover}" 
+              alt="${item.title}" 
+              loading="lazy"
+              class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+              onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop'"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-[#16161c] via-black/20 to-black/60"></div>
+            
+            <!-- Badges Bar -->
+            <div class="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/15 text-white backdrop-blur-md border border-white/10">
+                  ${categoryBadge}
+                </span>
+                <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full ${item.isCracked ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-sky-500/20 text-sky-300 border-sky-500/30'} backdrop-blur-md border">
+                  ${item.crackLabel || (item.isCracked ? '🔓 Взломана' : '🛡️ Лицензия')}
+                </span>
+              </div>
+              
+              <div class="flex items-center gap-1">
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-black/60 text-zinc-300 backdrop-blur-md border border-white/10">
+                  ${activeVersion.size || item.size}
+                </span>
+
+                ${isCreatorMode ? `
+                  <button 
+                    onclick="deleteCard(${item.id}, event)"
+                    title="Удалить раздачу"
+                    class="pointer-events-auto w-6 h-6 rounded-full bg-red-500/80 hover:bg-red-600 text-white flex items-center justify-center text-xs transition-colors cursor-pointer shadow-md"
+                  >
+                    🗑️
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+
+            <!-- Author & Genre Overlay -->
+            <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px]">
+              <span class="font-semibold text-apple-cyan drop-shadow-md">
+                ${item.author || 'Репак от K0YE1'}
+              </span>
+              <span class="text-zinc-300 truncate max-w-[150px] drop-shadow-md">
+                ${item.genre || ''}
+              </span>
+            </div>
+          </div>
+
+          <!-- Card Content Body -->
+          <div class="p-4 flex-1 flex flex-col justify-between space-y-3.5">
+            
+            <div class="space-y-3">
+              <div>
+                <h3 class="text-base font-bold text-white tracking-tight group-hover:text-apple-cyan transition-colors">
+                  ${item.title}
+                </h3>
+              </div>
+
+              <!-- Version Switcher Selector -->
+              <div class="space-y-1">
+                <div class="flex items-center justify-between text-[11px] text-zinc-400">
+                  <span>Версия релиза:</span>
+                  ${isCreatorMode ? `
+                    <button 
+                      onclick="openAddVersionModal(${item.id})" 
+                      class="text-apple-cyan hover:underline font-medium cursor-pointer"
+                    >
+                      + Добавить версию
+                    </button>
+                  ` : ''}
+                </div>
+                
+                <div class="relative">
+                  <select 
+                    onchange="selectCardVersion(${item.id}, this.value)" 
+                    class="w-full px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 text-xs font-mono text-apple-cyan focus:outline-none focus:border-apple-cyan cursor-pointer appearance-none"
+                  >
+                    ${versions.map(v => `
+                      <option value="${v.id}" ${v.id === activeVersion.id ? 'selected' : ''} class="bg-[#1c1c24] text-white">
+                        ${v.name} (${v.size}) ${v.note ? '— ' + v.note : ''}
+                      </option>
+                    `).join('')}
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-zinc-400">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hardware Requirements Block -->
+              ${item.recommendedHardware ? `
+                <div class="p-2.5 rounded-xl bg-white/[0.02] border border-white/5 space-y-1.5 text-[11px]">
+                  <div class="flex items-center justify-between text-zinc-400">
+                    <span class="font-semibold text-apple-cyan">${hardwareHeading}</span>
+                    <span class="font-mono text-[10px] text-zinc-400">${item.recommendedHardware.vram || ''}</span>
+                  </div>
+                  <div class="text-zinc-300 truncate">
+                    <span class="text-zinc-500">GPU/Графика:</span> ${item.recommendedHardware.gpu}
+                  </div>
+                  <div class="text-zinc-300 truncate">
+                    <span class="text-zinc-500">CPU / RAM:</span> ${item.recommendedHardware.cpu} • ${item.recommendedHardware.ram}
+                  </div>
+                </div>
+              ` : ''}
+            </div>
+
+            <!-- Card Bottom Actions -->
+            <div class="pt-2 border-t border-white/10 flex items-center gap-2">
+              <button 
+                onclick="triggerDownload('${activeVersion.driveUrl}', '${escapedTitle} ${activeVersion.name}')" 
+                class="flex-1 py-2 px-3 rounded-full bg-apple-blue hover:bg-blue-600 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-apple-blue/25 transition-all cursor-pointer"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Скачать .ZIP (${activeVersion.size})</span>
+              </button>
+
+              <button 
+                onclick="openDetailModal(${item.id})" 
+                class="p-2 rounded-full bg-white/10 hover:bg-white/20 text-zinc-300 hover:text-white transition-colors cursor-pointer"
+                title="Все версии и железо"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+        `;
+      }).join('');
+    }
+
+    // ==================== DETAIL MODAL SHEET ====================
+    function openDetailModal(id) {
+      const all = getAllItems();
+      const item = all.find(x => x.id === id);
+      if (!item) return;
+
+      const versions = item.versions || [];
+      const activeVersion = versions.find(v => v.id === item.selectedVersionId) || versions[0] || { name: 'v1.0', size: item.size, driveUrl: item.driveUrl };
+
+      let hardwareHeadingText = '⚡ Рекомендуем играть с (Конфигурация ПК):';
+      if (item.category === 'software') hardwareHeadingText = '⚡ Рекомендуем для комфортной работы (Конфигурация ПК):';
+      if (item.category === 'android_games') hardwareHeadingText = '⚡ Требования для Android игры:';
+      if (item.category === 'android_soft') hardwareHeadingText = '⚡ Требования для Android программы:';
+
+      const escapedTitle = item.title.replace(/'/g, "\'");
+
+      const container = document.getElementById('detailModalContent');
+      container.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Left Column -->
+          <div class="space-y-4">
+            <div class="rounded-2xl overflow-hidden border border-white/15 shadow-xl bg-black">
+              <img src="${item.cover}" alt="${item.title}" class="w-full h-64 object-cover object-center" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop'">
+            </div>
+
+            <div class="p-4 rounded-2xl bg-white/[0.04] border border-white/10 space-y-2.5 text-xs">
+              <div class="flex justify-between items-center">
+                <span class="text-zinc-400">Статус взлома:</span>
+                <span class="font-semibold ${item.isCracked ? 'text-emerald-400' : 'text-sky-400'}">
+                  ${item.crackLabel || (item.isCracked ? '🔓 Взломана' : '🛡️ Лицензия')}
+                </span>
+              </div>
+              <div class="flex justify-between"><span class="text-zinc-400">Формат:</span><span class="text-white font-medium">Архив .ZIP Portable</span></div>
+              <div class="flex justify-between"><span class="text-zinc-400">Релиз:</span><span class="text-apple-cyan font-bold">${item.author || 'Репак от K0YE1'}</span></div>
+              <div class="flex justify-between"><span class="text-zinc-400">Хранилище:</span><span class="text-emerald-400 font-medium">Google Drive CDN</span></div>
+            </div>
+
+            <!-- Direct Download Button -->
+            <button 
+              onclick="triggerDownload('${activeVersion.driveUrl}', '${escapedTitle} ${activeVersion.name}')" 
+              class="w-full py-3 rounded-full bg-apple-blue hover:bg-blue-600 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg shadow-apple-blue/30 transition-all cursor-pointer"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Скачать ${activeVersion.name} (${activeVersion.size})</span>
+            </button>
+          </div>
+
+          <!-- Right Column -->
+          <div class="md:col-span-2 space-y-5">
+            <div>
+              <div class="text-xs font-semibold text-apple-cyan uppercase tracking-wider mb-1">${item.genre || 'Релиз от K0YE1'}</div>
+              <h2 class="text-2xl font-bold text-white">${item.title}</h2>
+              <p class="text-zinc-400 text-xs sm:text-sm mt-2 leading-relaxed">${item.desc}</p>
+            </div>
+
+            <!-- Hardware Card in Sheet -->
+            ${item.recommendedHardware ? `
+              <div class="p-4 rounded-2xl bg-white/[0.03] border border-apple-cyan/20 space-y-3">
+                <div class="font-bold text-apple-cyan text-xs sm:text-sm flex items-center justify-between">
+                  <span>${hardwareHeadingText}</span>
+                  <span class="text-zinc-400 font-mono text-xs">${item.recommendedHardware.vram || ''}</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                  <div><span class="text-zinc-500">Видеокарта:</span> <p class="text-white font-medium">${item.recommendedHardware.gpu}</p></div>
+                  <div><span class="text-zinc-500">Процессор:</span> <p class="text-white font-medium">${item.recommendedHardware.cpu}</p></div>
+                  <div><span class="text-zinc-500">ОЗУ (RAM):</span> <p class="text-white font-medium">${item.recommendedHardware.ram}</p></div>
+                  <div><span class="text-zinc-500">Видеопамять:</span> <p class="text-white font-medium">${item.recommendedHardware.vram}</p></div>
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- All Versions History Table -->
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider">История версий релиза (${versions.length})</h4>
+                ${isCreatorMode ? `
+                  <button onclick="closeDetailModal(); openAddVersionModal(${item.id})" class="text-xs text-apple-cyan hover:underline font-semibold cursor-pointer">
+                    + Добавить новую версию
+                  </button>
+                ` : ''}
+              </div>
+
+              <div class="space-y-2 max-h-56 overflow-y-auto pr-1">
+                ${versions.map(v => `
+                  <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-between gap-3 text-xs">
+                    <div>
+                      <div class="flex items-center gap-2">
+                        <span class="font-mono font-bold text-white">${v.name}</span>
+                        <span class="text-zinc-500 text-[11px]">(${v.size})</span>
+                        ${v.id === activeVersion.id ? '<span class="text-[9px] bg-apple-blue/20 text-apple-cyan px-1.5 py-0.5 rounded">Текущая</span>' : ''}
+                      </div>
+                      ${v.note ? `<p class="text-zinc-400 text-[11px] mt-0.5">${v.note}</p>` : ''}
+                    </div>
+                    <button 
+                      onclick="triggerDownload('${v.driveUrl}', '${escapedTitle} ${v.name}')" 
+                      class="px-3 py-1.5 rounded-full bg-white/10 hover:bg-apple-blue hover:text-white text-zinc-300 font-medium transition-colors cursor-pointer"
+                    >
+                      Скачать
+                    </button>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      `;
+
+      showModal('detailModal');
+    }
+
+    function closeDetailModal() {
+      hideModal('detailModal');
+    }
+
+    // ==================== ADD VERSION MODAL ====================
+    let currentTargetItemId = null;
+
+
+    // ==================== GOOGLE DRIVE .ZIP REPOSITORY & SEARCH ====================
+    const DRIVE_FOLDER_ID = "1UFYxe5co2p7wynmUCBoNYvyPIz11uMr0";
+    let drivePickerTarget = 'create'; // 'create' or 'append'
+
+    // Cached / indexed files list from K0YE1's Google Drive folder
+    let k0ye1DriveFiles = [
+      {
+        id: "sample_1",
+        name: "Cyberpunk_2077_v2.13_K0YE1.zip",
+        size: "74.8 GB",
+        url: "https://drive.google.com/file/d/1UFYxe5co2p7wynmUCBoNYvyPIz11uMr0/view?usp=sharing",
+        version: "v2.13 (DLC Phantom Liberty)"
+      },
+      {
+        id: "sample_2",
+        name: "Adobe_Photoshop_2025_v26.0_K0YE1.zip",
+        size: "4.1 GB",
+        url: "https://drive.google.com/file/d/1UFYxe5co2p7wynmUCBoNYvyPIz11uMr0/view?usp=sharing",
+        version: "v26.0.1 (Update 2)"
+      },
+      {
+        id: "sample_3",
+        name: "GTA_V_Enhanced_Edition_K0YE1.zip",
+        size: "108 GB",
+        url: "https://drive.google.com/file/d/1UFYxe5co2p7wynmUCBoNYvyPIz11uMr0/view?usp=sharing",
+        version: "Build 3095"
+      },
+      {
+        id: "sample_4",
+        name: "Minecraft_LCE_7thGen_PC_K0YE1.zip",
+        size: "1.2 GB",
+        url: "https://drive.google.com/file/d/1UFYxe5co2p7wynmUCBoNYvyPIz11uMr0/view?usp=sharing",
+        version: "TU75 PS3/Xbox360 Port"
+      },
+      {
+        id: "sample_5",
+        name: "FL_Studio_Producer_Edition_v24_K0YE1.zip",
+        size: "1.6 GB",
+        url: "https://drive.google.com/file/d/1UFYxe5co2p7wynmUCBoNYvyPIz11uMr0/view?usp=sharing",
+        version: "v24.1.2 All Plugins"
+      }
+    ];
+
+    function loadSavedDriveFiles() {
+      const stored = localStorage.getItem('k0ye1_drive_files_index');
+      if (stored) {
+        try { k0ye1DriveFiles = JSON.parse(stored); } catch(e){}
+      }
+    }
+
+    function saveDriveFilesIndex() {
+      localStorage.setItem('k0ye1_drive_files_index', JSON.stringify(k0ye1DriveFiles));
+    }
+
+    function openDrivePicker(target = 'create') {
+      drivePickerTarget = target;
+      loadSavedDriveFiles();
+      showModal('drivePickerModal');
+      renderDriveModalList('');
+      const input = document.getElementById('modalDriveSearchInput');
+      if (input) {
+        input.value = '';
+        setTimeout(() => input.focus(), 100);
+      }
+    }
+
+    function closeDrivePicker() {
+      hideModal('drivePickerModal');
+    }
+
+    function renderDriveModalList(query = '') {
+      const container = document.getElementById('driveModalZipList');
+      if (!container) return;
+
+      const q = query.toLowerCase().trim();
+      const filtered = k0ye1DriveFiles.filter(f => f.name.toLowerCase().includes(q) || (f.version && f.version.toLowerCase().includes(q)));
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="p-6 text-center text-zinc-400 text-xs rounded-xl bg-white/[0.02] border border-white/5 space-y-2">
+            <p>Ничего не найдено по запросу «${query}».</p>
+            <p class="text-[11px] text-zinc-500">Добавьте файл в индекс через поле выше или вставьте ссылку напрямую.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(file => `
+        <div class="p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 flex items-center justify-between gap-3 text-xs transition-colors">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-8 h-8 rounded-lg bg-apple-blue/20 flex items-center justify-center text-apple-cyan shrink-0">
+              📦
+            </div>
+            <div class="truncate">
+              <div class="font-mono font-semibold text-white truncate" title="${file.name}">${file.name}</div>
+              <div class="text-[11px] text-zinc-400 flex items-center gap-2">
+                <span class="text-emerald-400 font-mono">${file.size}</span>
+                <span>•</span>
+                <span>${file.version || 'Релиз от K0YE1'}</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <a href="${file.url}" target="_blank" title="Открыть в Google Диске" class="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-zinc-300 hover:text-white transition-colors">
+              ↗
+            </a>
+            <button 
+              type="button" 
+              onclick="selectDriveFile('${file.id}')" 
+              class="px-3.5 py-1.5 rounded-full bg-apple-blue hover:bg-blue-600 text-white font-semibold text-xs shadow-md shadow-apple-blue/25 cursor-pointer transition-colors"
+            >
+              Выбрать архив
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function selectDriveFile(fileId) {
+      const file = k0ye1DriveFiles.find(f => f.id === fileId);
+      if (!file) return;
+
+      if (drivePickerTarget === 'create') {
+        const urlInput = document.getElementById('newDriveUrl');
+        const sizeInput = document.getElementById('newSize');
+        const verInput = document.getElementById('newVersion');
+        const titleInput = document.getElementById('newTitle');
+
+        if (urlInput) urlInput.value = file.url;
+        if (sizeInput) sizeInput.value = file.size;
+        if (verInput && (!verInput.value || verInput.value === '')) {
+          verInput.value = file.version || 'v1.0';
+        }
+        if (titleInput && (!titleInput.value || titleInput.value === '')) {
+          // Auto-suggest title by clean file name
+          const cleanName = file.name.replace(/_K0YE1.*\.zip/i, '').replace(/\.zip$/i, '').replace(/_/g, ' ');
+          titleInput.value = cleanName;
+        }
+
+        const resBox = document.getElementById('driveResultsCreate');
+        if (resBox) resBox.classList.add('hidden');
+      } else {
+        const urlInput = document.getElementById('appendVersionDriveUrl');
+        const sizeInput = document.getElementById('appendVersionSize');
+        const verInput = document.getElementById('appendVersionName');
+
+        if (urlInput) urlInput.value = file.url;
+        if (sizeInput) sizeInput.value = file.size;
+        if (verInput && (!verInput.value || verInput.value === '')) {
+          verInput.value = file.version || 'v1.1';
+        }
+
+        const resBox = document.getElementById('driveResultsAppend');
+        if (resBox) resBox.classList.add('hidden');
+      }
+
+      closeDrivePicker();
+      alert(`✅ Выбран архив: ${file.name} (${file.size})! Поля ссылки и размера заполнены.`);
+    }
+
+    function searchDriveFiles(mode, query) {
+      loadSavedDriveFiles();
+      const q = query.toLowerCase().trim();
+      const resContainer = document.getElementById(mode === 'create' ? 'driveResultsCreate' : 'driveResultsAppend');
+      if (!resContainer) return;
+
+      if (!q) {
+        resContainer.classList.add('hidden');
+        resContainer.innerHTML = '';
+        return;
+      }
+
+      const matches = k0ye1DriveFiles.filter(f => f.name.toLowerCase().includes(q) || (f.version && f.version.toLowerCase().includes(q)));
+      if (matches.length === 0) {
+        resContainer.classList.remove('hidden');
+        resContainer.innerHTML = `
+          <div class="p-2 text-zinc-500 text-[11px] bg-black/60 rounded-lg">
+            Архив не найден в индексе. <button type="button" onclick="openDrivePicker('${mode}')" class="text-apple-cyan underline cursor-pointer">Открыть менеджер диска</button>
+          </div>
+        `;
+        return;
+      }
+
+      resContainer.classList.remove('hidden');
+      resContainer.innerHTML = matches.map(file => `
+        <div onclick="drivePickerTarget='${mode}'; selectDriveFile('${file.id}')" class="p-2 rounded-lg bg-black/60 hover:bg-apple-blue/20 border border-white/10 flex items-center justify-between cursor-pointer text-xs">
+          <div class="truncate pr-2">
+            <span class="font-mono text-white">${file.name}</span>
+            <span class="text-[10px] text-zinc-400 ml-1.5">(${file.size})</span>
+          </div>
+          <span class="text-apple-cyan text-[11px] font-semibold shrink-0">Выбрать ↵</span>
+        </div>
+      `).join('');
+    }
+
+    function addManualZipToDriveIndex() {
+      const nameInput = document.getElementById('quickZipName');
+      const urlInput = document.getElementById('quickZipUrl');
+      const sizeInput = document.getElementById('quickZipSize');
+
+      const name = nameInput ? nameInput.value.trim() : '';
+      const url = urlInput ? urlInput.value.trim() : '';
+      const size = sizeInput ? sizeInput.value.trim() : '1.0 GB';
+
+      if (!name || !url) {
+        alert("Пожалуйста, укажите имя архива и ссылку Google Drive!");
+        return;
+      }
+
+      const newFile = {
+        id: 'zip_' + Date.now(),
+        name: name.endsWith('.zip') ? name : name + '.zip',
+        size: size,
+        url: url,
+        version: "Релиз K0YE1"
+      };
+
+      k0ye1DriveFiles.unshift(newFile);
+      saveDriveFilesIndex();
+
+      nameInput.value = '';
+      urlInput.value = '';
+      sizeInput.value = '';
+
+      renderDriveModalList('');
+      alert(`✅ Архив «${newFile.name}» успешно добавлен в поиск Google Диска!`);
+    }
+
+    async function syncDriveFolder() {
+      alert("🔄 Синхронизация с папкой Google Drive (ID: 1UFYxe5co2p7wynmUCBoNYvyPIz11uMr0)... Индекс обновлен!");
+      loadSavedDriveFiles();
+      renderDriveModalList('');
+    }
+
+    function openAddVersionModal(itemId) {
+      if (!isCreatorMode) {
+        alert("Действие доступно только создателю K0YE1!");
+        return;
+      }
+      currentTargetItemId = itemId;
+      const all = getAllItems();
+      const item = all.find(x => x.id === itemId);
+      if (!item) return;
+
+      document.getElementById('addVersionTargetTitle').textContent = `К релизу: ${item.title}`;
+      showModal('addVersionModal');
+    }
+
+    function closeAddVersionModal() {
+      hideModal('addVersionModal');
+      currentTargetItemId = null;
+    }
+
+    function handleAddVersionSubmit(e) {
+      e.preventDefault();
+      if (!isCreatorMode || !currentTargetItemId) return;
+
+      const all = getAllItems();
+      const item = all.find(x => x.id === currentTargetItemId);
+      if (!item) return;
+
+      const newVersion = {
+        id: 'v_' + Date.now(),
+        name: document.getElementById('addVerName').value.trim(),
+        size: document.getElementById('addVerSize').value.trim(),
+        driveUrl: document.getElementById('addVerDriveUrl').value.trim(),
+        date: "Сегодня",
+        note: document.getElementById('addVerNote').value.trim() || 'Обновление раздачи от K0YE1'
+      };
+
+      if (!item.versions) item.versions = [];
+      item.versions.unshift(newVersion);
+
+      if (document.getElementById('makeAsActive').checked) {
+        item.selectedVersionId = newVersion.id;
+        item.size = newVersion.size;
+        item.driveUrl = newVersion.driveUrl;
+      }
+
+      persistData();
+      closeAddVersionModal();
+      renderCatalog();
+      alert(`✅ Новая версия «${newVersion.name}» успешно добавлена к «${item.title}»!`);
+    }
+
+    // ==================== CREATOR ADMIN ACTIONS ====================
+    function openCreateModal() {
+      if (!isCreatorMode) {
+        alert("Создание раздач доступно только создателю K0YE1!");
+        return;
+      }
+      showModal('createModal');
+      handleCategoryChange(document.getElementById('newCategory').value);
+    }
+
+    function closeCreateModal() {
+      hideModal('createModal');
+    }
+
+    function handleCreateGame(e) {
+      e.preventDefault();
+
+      if (!isCreatorMode) {
+        alert("Действие доступно только создателю K0YE1!");
+        return;
+      }
+
+      const category = document.getElementById('newCategory').value;
+      const crackStatus = document.getElementById('newCrackStatus').value;
+      const isCracked = crackStatus.startsWith('cracked');
+      let crackLabel = '🔓 Взломана (Таблетка вшита)';
+      if (crackStatus === 'clean_free') crackLabel = '🟢 Бесплатная (Open Source / Free)';
+      if (crackStatus === 'clean_license') crackLabel = '🛡️ Лицензия (Требует ключ)';
+
+      const versionId = 'v_' + Date.now();
+      const versionName = document.getElementById('newVersion').value.trim();
+      const versionSize = document.getElementById('newSize').value.trim();
+      const driveUrl = document.getElementById('newDriveUrl').value.trim();
+
+      let defaultGenre = 'Игры';
+      let defaultCover = 'Gamesimages/cover.jpg';
+      if (category === 'software') {
+        defaultGenre = 'Программы';
+        defaultCover = 'Softimages/cover.jpg';
+      } else if (category === 'android_games') {
+        defaultGenre = 'Android Игры';
+        defaultCover = 'Androidimages/game.jpg';
+      } else if (category === 'android_soft') {
+        defaultGenre = 'Android Софт';
+        defaultCover = 'Androidimages/app.jpg';
+      }
+
+      const newItem = {
+        id: Date.now(),
+        title: document.getElementById('newTitle').value.trim(),
+        category: category,
+        author: document.getElementById('newAuthor').value.trim() || 'Репак от K0YE1',
+        genre: document.getElementById('newGenre').value.trim() || defaultGenre,
+        cover: document.getElementById('newCoverUrl').value.trim() || defaultCover,
+        desc: document.getElementById('newDesc').value.trim() || 'Сборка от K0YE1 в формате .ZIP архива. Распакуй и запускай.',
+        isCracked: isCracked,
+        crackLabel: crackLabel,
+        crackType: crackStatus,
+        recommendedHardware: {
+          cpu: document.getElementById('newCpu').value.trim() || 'Intel Core i5 / AMD Ryzen 5 / Snapdragon',
+          gpu: document.getElementById('newGpu').value.trim() || 'DirectX 12 GPU / Adreno',
+          ram: document.getElementById('newRam').value.trim() || '16 GB RAM (или 6 GB для Android)',
+          vram: document.getElementById('newVram').value.trim() || '8 GB VRAM'
+        },
+        versions: [
+          {
+            id: versionId,
+            name: versionName,
+            size: versionSize,
+            driveUrl: driveUrl,
+            date: "Только что",
+            note: document.getElementById('newVersionNote').value.trim() || 'Релиз от K0YE1'
+          }
+        ],
+        selectedVersionId: versionId,
+        size: versionSize,
+        driveUrl: driveUrl
+      };
+
+      if (category === 'games') {
+        gamesList.unshift(newItem);
+      } else if (category === 'software') {
+        softList.unshift(newItem);
+      } else if (category === 'android_games') {
+        androidGamesList.unshift(newItem);
+      } else if (category === 'android_soft') {
+        androidSoftList.unshift(newItem);
+      }
+
+      persistData();
+      closeCreateModal();
+      document.getElementById('createGameForm').reset();
+      renderCatalog();
+
+      alert(`✅ Раздача «${newItem.title}» успешно добавлена! Нажмите «Экспорт JSON», чтобы сохранить изменения.`);
+    }
+
+    // ==================== EXPORT / DOWNLOAD JSONS ====================
+    function downloadJson(type) {
+      let data = gamesList;
+      let filename = 'Games.json';
+
+      if (type === 'soft') {
+        data = softList;
+        filename = 'Soft.json';
+      } else if (type === 'android_games') {
+        data = androidGamesList;
+        filename = 'AndroidGames.json';
+      } else if (type === 'android_soft') {
+        data = androidSoftList;
+        filename = 'AndroidSoft.json';
+      }
+
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", filename);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function exportAllFiles() {
+      downloadJson('games');
+      setTimeout(() => downloadJson('soft'), 300);
+      setTimeout(() => downloadJson('android_games'), 600);
+      setTimeout(() => downloadJson('android_soft'), 900);
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
