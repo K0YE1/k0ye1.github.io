@@ -722,7 +722,7 @@
 
   <!-- 5. Apple-Style Secure Sign-In Modal -->
   <div id="loginModal" class="modal-overlay">
-    <div class="apple-sheet w-full max-w-md p-6 sm:p-8 space-y-5 text-center relative animate-in fade-in zoom-in-95 duration-200">
+    <div class="apple-sheet w-full max-w-sm p-6 sm:p-7 space-y-6 text-center relative animate-in fade-in zoom-in-95 duration-200">
       
       <button onclick="closeLoginModal()" class="absolute top-4 right-4 w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-zinc-300 cursor-pointer">
         ✕
@@ -739,76 +739,21 @@
 
       <div class="space-y-1.5">
         <h3 class="text-xl font-bold text-white">Вход через Google</h3>
-        <p class="text-xs text-zinc-400">Авторизованные пользователи скачивают архивы сразу (без 30 сек. ожидания).</p>
+        <p class="text-xs text-zinc-400">Авторизуйтесь через аккаунт Google, чтобы скачивать .ZIP архивы без 30 сек. ожидания.</p>
       </div>
 
       <!-- Real Google Official One Tap / Sign In Button Container -->
-      <div class="space-y-3">
-        <div id="g_id_signin_wrapper" class="flex justify-center items-center py-2 min-h-[44px]">
-          <!-- Google Official Button rendered dynamically here -->
-          <div id="googleBtnContainer" class="flex justify-center"></div>
-        </div>
-        
-        <div class="flex items-center gap-3 text-zinc-500 text-xs">
-          <div class="flex-1 h-px bg-white/10"></div>
-          <span>или вручную по Email / Создатель K0YE1</span>
-          <div class="flex-1 h-px bg-white/10"></div>
-        </div>
-
-        <div class="space-y-3 text-left">
-          <div>
-            <label class="block text-xs text-zinc-400 font-medium mb-1">Google Email аккаунта:</label>
-            <input 
-              id="loginEmailInput" 
-              type="email" 
-              placeholder="metaquestvropen@gmail.com" 
-              class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/15 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-apple-blue"
-            >
-          </div>
-
-          <div>
-            <div class="flex items-center justify-between mb-1">
-              <label class="block text-xs text-zinc-400 font-medium">Пароль (только для Создателя K0YE1):</label>
-              <span class="text-[10px] text-zinc-500">Для гостей пусто</span>
-            </div>
-            <input 
-              id="loginPasswordInput" 
-              type="password" 
-              placeholder="Введите мастер-пароль админа" 
-              class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/15 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-apple-blue"
-            >
-          </div>
-        </div>
-
-        <div class="flex items-center gap-3 pt-2">
-          <button onclick="closeLoginModal()" class="flex-1 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-medium transition-colors cursor-pointer">
-            Отмена
-          </button>
-          <button onclick="submitLogin()" class="flex-1 py-2.5 rounded-full bg-apple-blue hover:bg-blue-600 text-white text-xs sm:text-sm font-semibold transition-colors shadow-lg shadow-apple-blue/30 cursor-pointer">
-            Войти
-          </button>
-        </div>
-
-        <!-- Google Client ID Config Info (Collapsible for K0YE1 setup) -->
-        <div class="pt-2 text-left">
-          <details class="text-[11px] text-zinc-400 cursor-pointer bg-white/[0.02] p-2.5 rounded-xl border border-white/5">
-            <summary class="font-medium text-apple-cyan hover:underline">⚙️ Настройка Google Client ID (Google Cloud Console)</summary>
-            <div class="mt-2 space-y-2 text-zinc-400">
-              <p>Для работы нативного всплывающего окна Google OAuth на GitHub Pages введите ваш Google Client ID (из Google Cloud Console):</p>
-              <div class="flex gap-2">
-                <input id="customGoogleClientId" type="text" placeholder="например: 123456789-abc.apps.googleusercontent.com" class="flex-1 px-2.5 py-1.5 rounded-lg bg-black/40 border border-white/15 text-white text-xs">
-                <button onclick="saveGoogleClientId()" class="px-3 py-1.5 rounded-lg bg-apple-blue text-white text-xs font-semibold cursor-pointer">Сохранить</button>
-              </div>
-            </div>
-          </details>
-        </div>
-
+      <div class="py-2 flex justify-center items-center">
+        <div id="googleBtnContainer" class="flex justify-center w-full"></div>
       </div>
+
+      <p class="text-[11px] text-zinc-500">
+        Создатель сайта (<span class="text-apple-cyan">metaquestvropen@gmail.com</span>) получает автоматический доступ к добавлению раздач при входе.
+      </p>
 
     </div>
   </div>
 
-  
   <!-- 6. Google Drive Zip Picker Modal -->
   <div id="drivePickerModal" class="modal-overlay">
     <div class="apple-sheet w-full max-w-2xl p-6 sm:p-7 space-y-5 relative animate-in fade-in zoom-in-95 duration-200">
@@ -1068,7 +1013,7 @@
 
     // ==================== GOOGLE IDENTITY SERVICES (GIS) ====================
     function getGoogleClientId() {
-      return localStorage.getItem('k0ye1_google_client_id') || "366921002305-eti5kh9g7s27dal33c00t4c70pcjfu1v.apps.googleusercontent.com";
+      return "366921002305-eti5kh9g7s27dal33c00t4c70pcjfu1v.apps.googleusercontent.com";
     }
 
     function saveGoogleClientId() {
@@ -1130,22 +1075,15 @@
       if (picture) localStorage.setItem('k0ye1_user_picture', picture);
       if (name) localStorage.setItem('k0ye1_user_name', name);
 
-      // Creator check
+      // Creator check: if logged in as metaquestvropen@gmail.com -> automatically K0YE1 Creator Admin!
       if (email.toLowerCase() === CREATOR_EMAIL.toLowerCase()) {
-        const pass = prompt("👑 Google аккаунт K0YE1 подтверждён! Введите мастер-пароль админа:");
-        if (pass === MASTER_ADMIN_PASS) {
-          isCreatorMode = true;
-          localStorage.setItem('k0ye1_admin_auth', 'authorized_k0ye1_creator');
-          alert("👑 Добро пожаловать, Создатель K0YE1! Полный доступ активирован.");
-        } else {
-          isCreatorMode = false;
-          localStorage.removeItem('k0ye1_admin_auth');
-          alert("⚠️ Мастер-пароль не введён. Вход выполнен как обычный верифицированный Google-пользователь.");
-        }
+        isCreatorMode = true;
+        localStorage.setItem('k0ye1_admin_auth', 'authorized_k0ye1_creator');
+        alert("👑 Добро пожаловать, Создатель K0YE1 (" + email + ")! Права администратора активированы.");
       } else {
         isCreatorMode = false;
         localStorage.removeItem('k0ye1_admin_auth');
-        alert("✅ Добро пожаловать, " + name + "! Таймер скачивания отключен (0 сек).");
+        alert("✅ Добро пожаловать, " + name + "! Вход выполнен через Google, таймер 30 секунд отключен.");
       }
 
       closeLoginModal();
